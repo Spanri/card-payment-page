@@ -1,0 +1,16 @@
+.history, .payment, .payment-success {
+  background-color: $color-backg-right-part;
+	// width: calc(100% - 60px);
+	width: 100%;
+  padding: 45px 30px;
+  font-family: Arial;
+  font-size: 1em;
+  color: $color-main;
+}
+
+@media (max-width: 400px) {
+  .history, .payment, .payment-success {
+		width: calc(100% - 0px);
+		padding: 35px 20px;
+	}
+}
