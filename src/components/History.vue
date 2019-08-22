@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <table>
+    <table v-if="payments.length != 0">
       <thead>
         <tr>
           <th>Дата</th>
@@ -18,6 +18,7 @@
         </tr>
       </tbody>
     </table>
+    <p v-else>Вы не совершили ни одного платежа.</p>
   </div>
 </template>
 
@@ -26,9 +27,7 @@ export default {
   name: 'history',
   computed: {
     payments() {
-      let a = this.$store.getters.getPayments;
-      console.log(a);
-      return a;
+      return this.$store.getters.getPayments;
     }
   }
 }
@@ -45,6 +44,7 @@ table {
   margin: 15px;
   margin-bottom: 0;
   text-align: center;
+  word-break: break-all;
 
   @media (max-width: 768px) {
     width: 100%;

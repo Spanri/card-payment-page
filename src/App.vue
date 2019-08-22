@@ -23,10 +23,6 @@ export default {
   src: url(assets/fonts/OpenSans-Bold.woff);
 }
 
-* {
-  transition: all 0.4s ease-out;
-}
-
 #background{
   background: #101114;
   min-height: 100vh;
@@ -58,5 +54,4 @@ export default {
     font-size: 12px;
   }
 }
-
 </style>

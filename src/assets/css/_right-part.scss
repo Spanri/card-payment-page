@@ -1,7 +1,7 @@
 .history, .payment, .payment-success {
   background-color: $color-backg-right-part;
-	// width: calc(100% - 60px);
-	width: 100%;
+	width: calc(100% - 60px);
+	// width: 100%;
   padding: 45px 30px;
   font-family: Arial;
   font-size: 1em;
@@ -10,7 +10,7 @@
 
 @media (max-width: 400px) {
   .history, .payment, .payment-success {
-		width: calc(100% - 0px);
+		width: calc(100% - 40px);
 		padding: 35px 20px;
 	}
 }

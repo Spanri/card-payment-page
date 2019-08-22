@@ -47,6 +47,7 @@
 
     &:hover {
       color: $color-text-dark;
+      transition: all 0.4s ease-out;
     }
 
     &.router-link-exact-active {

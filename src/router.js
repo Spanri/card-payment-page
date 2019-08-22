@@ -6,17 +6,8 @@ import History from './components/History.vue'
 
 Vue.use(Router)
 
-const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/auth')
-}
-
 export default new Router({
   mode: 'history',
-  // base: process.env.BASE_URL,
   routes: [
     {
       path: '/payment',
@@ -28,7 +19,6 @@ export default new Router({
       name: 'payment-success',
       component: PaymentSuccess,
       props: true,
-      // beforeEnter: ifPaymentSuccess,
     },
     {
       path: '/history',
@@ -36,7 +26,7 @@ export default new Router({
       component: History
     },
     {
-      path: '/',
+      path: '*',
       redirect: '/history'
     },
   ]

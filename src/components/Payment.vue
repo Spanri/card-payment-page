@@ -6,10 +6,9 @@
       <input
         v-model="accountNumber"
         type="text"
-        title="Только латинские буквы"
+        title="Введите номер счета"
         oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        minlength="20"
-        maxlength="20"
+        pattern="[0-9]+"
         required>
     </div>
     <div class="payment__info-input">
@@ -17,7 +16,9 @@
       <input
         v-model="amount"
         type="text"
+        title="Введите число больше 0"
         oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        pattern="[0-9]+"
         required>
       <label> руб.</label>
     </div>
@@ -32,8 +33,9 @@
               v-for="(elem, index) in ['cardNumber1', 'cardNumber2', 'cardNumber3', 'cardNumber4']"
               :key="index"
               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-              minlength="4"
               maxlength="4"
+              title="Введите 4 цифры"
+              pattern="[0-9]{4}"
               required
               type="text"
               :v-model="elem">
@@ -62,8 +64,8 @@
             v-model="cardHolder"
             type="text"
             placeholder="Держатель карты"
-            title="Только латинские буквы"
-            pattern="[^a-zA-Z ]"
+            title="Введите имя и фамилию держателя карты. Только латинские буквы и пробелы"
+            pattern="[a-zA-Z ]{4,}"
             oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')"
             minlength="4"
             required>
@@ -73,13 +75,14 @@
           <p>Код CVV2 / CVC2</p>
           <div class="int-card__input-code">
             <input
-              minlength="3"
               maxlength="3"
+              pattern="[0-9]{3}"
+              title="Введите 3 цифры"
               required
               type="text"
               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
               v-model="cardCode">
-            <div>fgfgfg</div>
+            <div></div>
           </div>
         </div>
       </div>
@@ -112,7 +115,7 @@ export default {
       let payment = {
         accountNumber: this.accountNumber,
         amount: this.amount,
-        cardholder: this.cardHolder,
+        cardHolder: this.cardHolder,
         date: this.dateFormat(new Date())
       }
       this.$store.dispatch('addPayment', payment)
@@ -146,12 +149,18 @@ input, select {
   }
 }
 
-input::-ms-clear {
-  display: none;
-}
+input {
+  &:invalid:focus {
+    border: 1px solid red;
+  }
 
-input:not(.payment__info-input), select {
-  margin: 5px 10px 10px 0;
+  &:not(.payment__info-input) {
+    margin: 5px 10px 10px 0;
+  }
+
+  &::-ms-clear {
+    display: none;
+  }
 }
 
 .payment {
@@ -320,6 +329,15 @@ input:not(.payment__info-input), select {
     }
   }
 
+  &__input-code div{
+    z-index: 3;
+    height: 40px;
+    background-image: url('../assets/hint.png');
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 67% center;
+  }
+
   &__stripe{
     margin-top: 8px;
     width: 100%;
@@ -329,10 +347,9 @@ input:not(.payment__info-input), select {
 }
 
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   padding-right: 30px;
+  margin: 5px 10px 10px 0;
 
   &:hover {
     cursor: pointer;
@@ -343,7 +360,7 @@ select {
   }
 }
 
-input::placeholder, :-ms-input-placeholder, ::-webkit-input-placeholder {
+input::placeholder{
   color: $color-text !important;
   opacity: 1;
 }
