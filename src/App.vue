@@ -32,6 +32,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: stretch;
   font-size: 16px;
   max-width: 1000px;
   margin: 0 auto;
@@ -46,7 +47,9 @@ export default {
   }
 
   @media (max-width: 768px) {
+    min-height: 100vh;
     flex-direction: column;
+    justify-content: flex-start;
     padding: 0;
   }
 

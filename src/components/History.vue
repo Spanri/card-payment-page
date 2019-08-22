@@ -38,6 +38,12 @@ export default {
 @import '../assets/css/variables';
 @import '../assets/css/right-part';
 
+.history {
+  @media (max-width: 768px) {
+    flex: 100%;
+  }
+}
+
 table {
   border-collapse: collapse;
   width: calc(100% - 30px);

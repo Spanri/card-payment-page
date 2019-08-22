@@ -82,7 +82,7 @@
               type="text"
               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
               v-model="cardCode">
-            <div></div>
+            <span></span>
           </div>
         </div>
       </div>
@@ -313,11 +313,7 @@ input {
     clear: both;
     margin-right: 10px;
     width: 107px;
-    background-image: url('../assets/hint.png');
-    background-repeat: no-repeat;
-    background-size: 25px 25px;
-    background-position: 93% center;
-
+    
     @media (max-width: 1000px) {
       width: 91px;
     }
@@ -327,15 +323,64 @@ input {
       background-size: 20px 20px;
       background-position: 93% center;
     }
+
+    &:before {
+      content: 'attr(data-tooltip)';
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      width: 140px;
+      height: 40px;
+      line-height: 40px;
+      background: #3C4896;
+      border-radius: 5px;
+      bottom: 90px;
+      left: calc(50% - 70px);
+    }
+
+    &:hover:before {
+      bottom: 70px;
+      opacity: 1;
+      visibility: visible;
+      transition: .2s ease-in-out .4s; /* сделаем появление подсказки с задержкой */
+    }
   }
 
-  &__input-code div{
+  &__input-code span{
+    position: relative;
+    top: 6px;
+    right: -105px;
     z-index: 3;
+    width: 25px;
     height: 40px;
+    float: right;
     background-image: url('../assets/hint.png');
     background-repeat: no-repeat;
     background-size: 25px 25px;
-    background-position: 67% center;
+    background-position: 95% 5px;
+
+    @media (min-width: 1000px) {
+      top: 8px;
+      right: -120px;
+    }
+
+    @media (max-width: 450px) {
+      top: 0px;
+      right: -90px;
+      background-size: 20px 20px;
+      background-position: 93% center;
+    }
+
+    @media (max-width: 400px) {
+      top: -2px;
+      right: -90px;
+      background-size: 15px 15px;
+      background-position: 93% center;
+    }
+
+    &:hover {
+      cursor: pointer;   
+    }
   }
 
   &__stripe{
