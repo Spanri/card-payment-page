@@ -1,3 +1,4 @@
+/* основной контент */
 @mixin content {
   background-color: $color-backg-content;
   width: calc(100% - 60px);
@@ -13,5 +14,23 @@
   @media (max-width: 400px) {
     width: calc(100% - 40px);
     padding: 35px 20px;
+  }
+}
+
+/* некликабельные ссылки */
+@mixin disable {
+  .disable {
+    pointer-events: none;
+  }
+}
+
+@mixin input {
+  color: $color-text-darker;
+  border: 1px $color-border solid;
+  padding: 10px;
+  font-size: 1em;
+
+  @media (max-width: 450px) {
+    padding: 5px;
   }
 }

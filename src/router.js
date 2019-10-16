@@ -6,24 +6,33 @@ import History from '@/views/History.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/payment',
       name: 'payment',
       component: Payment,
+      meta: {
+        title: 'Платежи',
+      },
     },
     {
       path: '/payment-success',
       name: 'payment-success',
       component: PaymentSuccess,
       props: true,
+      meta: {
+        title: 'Платеж прошел успешно',
+      },
     },
     {
       path: '/history',
       name: 'history',
       component: History,
+      meta: {
+        title: 'История платежей',
+      },
     },
     {
       path: '*',
@@ -31,3 +40,11 @@ export default new Router({
     },
   ],
 });
+
+router.afterEach((to) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title ? to.meta.title : 'Страница платежей';
+  });
+});
+
+export default router;

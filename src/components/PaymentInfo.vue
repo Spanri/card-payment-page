@@ -4,6 +4,7 @@
     <div class="info__input-group">
       <span class="info__span">Номер счета:</span>
       <input
+        class="info__input"
         v-model="accountNumber"
         type="text"
         title="Введите номер счета"
@@ -15,6 +16,7 @@
     <div class="info__input-group">
       <span class="info__span">Сумма платежа:</span>
       <input
+        class="info__input"
         v-model="amount"
         type="text"
         title="Введите число больше 0"
@@ -32,6 +34,8 @@
   @include content;
 
   &__input {
+    @include input;
+
     margin: 0 10px 0 0;
     padding-top: 10px;
   }

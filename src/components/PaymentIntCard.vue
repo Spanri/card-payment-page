@@ -3,19 +3,47 @@
     <div class="int-card__line"></div>
     <p class="int-card__title">Код CVV2 / CVC2</p>
     <div class="int-card__input-group">
-      <input
-        class="int-card__input"
-        maxlength="3"
-        pattern="[0-9]{3}"
-        title="Введите 3 цифры"
-        required
-        type="text"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        v-model="cardCode">
+      <b-form-input
+        class="int-card__input" type="text"
+        v-model="$v.cardCode.$model"
+        title="Введите 3 цифры" required
+      />
       <span class="input-card__span"></span>
     </div>
+    <b-form-invalid-feedback
+      :id="`input-block__invalid-feedback-${cardCode}`"
+    >
+      Необходимо ввести 3 цифры.
+    </b-form-invalid-feedback>
   </div>
 </template>
+
+<script>
+import { required, minLength, maxLength, } from 'vuelidate/lib/validators';
+
+export default {
+  name: 'PaymentIntCard',
+  props: ['cardCode',],
+  computed: {
+    cardCodeValue: {
+      get() {
+        return this.cardCode;
+      },
+      set(value) {
+        this.$emit('setCardCode', value);
+      },
+    },
+  },
+  validations: {
+    cardCode: {
+      type: Number,
+      required,
+      minLength: minLength(3),
+      maxLength: maxLength(3),
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .int-card {
@@ -36,7 +64,9 @@
     margin-bottom: 0px;
   }
 
-  input {
+  &__input {
+    @include input;
+    
     float: right;
     clear: both;
     margin-right: 10px;
@@ -56,11 +86,12 @@
       left: calc(50% - 70px);
     }
 
+    /* появление подсказки */
     &:hover:before {
       bottom: 70px;
       opacity: 1;
       visibility: visible;
-      transition: .2s ease-in-out .4s; /* сделаем появление подсказки с задержкой */
+      transition: .2s ease-in-out .4s;
     }
   }
 

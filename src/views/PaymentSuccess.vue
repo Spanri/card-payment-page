@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'Payment-success',
+  name: 'PaymentSuccess',
   props: {
     payment: {
       type: Object,

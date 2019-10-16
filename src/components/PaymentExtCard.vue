@@ -41,6 +41,10 @@
 </template>
 
 <style lang="scss" scoped>
+input {
+  @include input;
+}
+
 .ext-card {
   z-index: 1;
   position: absolute;

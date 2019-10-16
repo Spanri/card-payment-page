@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'payment',
+  name: 'Payment',
   components: { 
     PaymentInfo: () => import("@/components/PaymentInfo"),
     PaymentExtCard: () => import("@/components/PaymentExtCard"),
@@ -116,6 +116,10 @@ select {
 input::placeholder{
   color: $color-text !important;
   opacity: 1;
+}
+
+.payment {
+  @include content;
 }
 
 button {

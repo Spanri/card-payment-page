@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'App',
-  components: { 
+  components: {
     Nav: () => import("@/components/Nav"),
   },
 };
@@ -21,6 +21,10 @@ export default {
   font-family: OpenSans-Bold;
   src: url(assets/fonts/OpenSans-Bold.ttf);
   src: url(assets/fonts/OpenSans-Bold.woff);
+}
+
+::selection {
+  background: $color-payment-button-light;
 }
 
 #app {

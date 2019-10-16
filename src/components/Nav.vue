@@ -1,36 +1,49 @@
 <template>
   <div class="nav">
-    <router-link to="/" class="nav__item nav__item_disabled">Личный кабинет</router-link>
-    <router-link to="/payment" class="nav__item">Платежи</router-link>
-    <router-link to="/history" class="nav__item">История платежей</router-link>
-    <router-link to="/" class="nav__item nav__item_disabled">Настройки</router-link>
-    <router-link to="/" class="nav__item nav__item_disabled">Выйти</router-link>
+    <router-link to="/" class="nav__item disable">
+      Личный кабинет
+    </router-link>
+    <router-link to="/payment" class="nav__item">
+      Платежи
+    </router-link>
+    <router-link to="/history" class="nav__item">
+      История платежей
+    </router-link>
+    <router-link to="/" class="nav__item disable">
+      Настройки
+    </router-link>
+    <router-link to="/" class="nav__item disable">
+      Выйти
+    </router-link>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.router-link-exact-active {
+  background-color: $color-backg-menu-active;
+  color: $color-text-dark;
+  pointer-events: none;
+  transition: all 0.4s ease-out;
+}
+
 .nav {
+  @include disable;
+
   display: flex;
   flex-direction: column;
   padding: 0;
   font-size: 1.125em;
   min-width: 322px;
 
-  a {
+  &__item {
     font-family: $primary-font;
     color: $color-text-light;
     padding: 30px;
     text-decoration: none;
+    text-align: center;
 
     &:hover {
       color: $color-text-dark;
-      transition: all 0.4s ease-out;
-    }
-
-    .router-link-exact-active {
-      background-color: $color-backg-menu-active;
-      color: $color-text-dark;
-      pointer-events: none;
       transition: all 0.4s ease-out;
     }
   }
@@ -55,12 +68,7 @@
     background-color: $color-backg-menu-bottom;
   }
 
-  /* некликабельные ссылки */
-  &__item_disabled {
-    pointer-events: none;
-  }
-
-  &__item:nth-last-child(1) {
+  &__item:last-child {
     color: $color-text-dark;
   }
 }
@@ -73,9 +81,7 @@
 
 @media (max-width: 768px) {
   .nav {
-    text-align: center;
-
-    a {
+    &__item {
       padding: 20px;
     }
   }
@@ -83,10 +89,9 @@
 
 @media (max-width: 400px) {
   .nav {
-    text-align: center;
     font-size: 1em;
 
-    a {
+    &__item {
       padding: 15px;
     }
   }
