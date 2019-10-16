@@ -12,25 +12,22 @@
 export default {
   name: 'payment-success',
   props: {
-    payment: Object
+    payment: Object,
   },
   data() {
-    return{
-      paym: this.payment
-    }
+    return {
+      paym: this.payment,
+    };
   },
   created() {
-    if (typeof(this.paym) == "undefined") {
+    if (typeof (this.paym) === 'undefined') {
       this.$router.push('/payment');
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/variables';
-@import '../assets/css/right-part';
-
 span {
   color: $color-text-more-darker;
   font-family: OpenSans-Bold;

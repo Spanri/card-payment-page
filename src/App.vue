@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Nav from './components/Nav' 
+import Nav from './components/Nav';
 
 export default {
   name: 'App',
-  components: { Nav }
-}
+  components: { Nav, },
+};
 </script>
 
 <style lang="scss">
@@ -40,20 +40,26 @@ export default {
   font-family: 'OpenSans-Bold', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  @media (max-width: 1000px) {
+@media (max-width: 1000px) {
+  #app {
     max-width: auto;
     font-size: 14px;
   }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  #app {
     min-height: 100vh;
     flex-direction: column;
     justify-content: flex-start;
     padding: 0;
   }
+}
 
-  @media (max-width: 400px) {
+@media (max-width: 400px) {
+  #app {
     font-size: 12px;
   }
 }

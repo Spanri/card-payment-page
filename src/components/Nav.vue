@@ -9,8 +9,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../assets/css/variables';
-
 .nav {
   display: flex;
   flex-direction: column;

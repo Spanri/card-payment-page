@@ -28,16 +28,13 @@ export default {
   computed: {
     payments() {
       return this.$store.getters.getPayments;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@import '../assets/css/variables';
-@import '../assets/css/right-part';
-
 .history {
   @media (max-width: 768px) {
     flex: 100%;

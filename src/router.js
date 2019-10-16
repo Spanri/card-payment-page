@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Payment from './components/Payment.vue'
-import PaymentSuccess from './components/PaymentSuccess.vue'
-import History from './components/History.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Payment from './components/Payment.vue';
+import PaymentSuccess from './components/PaymentSuccess.vue';
+import History from './components/History.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -12,7 +12,7 @@ export default new Router({
     {
       path: '/payment',
       name: 'payment',
-      component: Payment
+      component: Payment,
     },
     {
       path: '/payment-success',
@@ -23,11 +23,11 @@ export default new Router({
     {
       path: '/history',
       name: 'history',
-      component: History
+      component: History,
     },
     {
       path: '*',
-      redirect: '/history'
+      redirect: '/history',
     },
-  ]
-})
+  ],
+});

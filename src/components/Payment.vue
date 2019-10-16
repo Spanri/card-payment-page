@@ -104,40 +104,37 @@ export default {
       cardNumber4: '',
       cardHolder: '',
       cardCode: '',
-    }
+    };
   },
   methods: {
     dateFormat(date) {
-      let months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+      let months = [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек', ];
       return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     },
-    checkForm (e) {
+    checkForm(e) {
       let payment = {
         accountNumber: this.accountNumber,
         amount: this.amount,
         cardHolder: this.cardHolder,
-        date: this.dateFormat(new Date())
-      }
+        date: this.dateFormat(new Date()),
+      };
       this.$store.dispatch('addPayment', payment)
-      .then(() => {
-        this.$router.push({ 
-          name: 'payment-success', 
-          params: { 
-            payment: payment
-          } 
+        .then(() => {
+          this.$router.push({
+            name: 'payment-success',
+            params: {
+              payment: payment,
+            },
+          });
+        }).catch(err => {
+          console.log(err);
         });
-      }).catch(err => {
-        console.log(err);
-      });
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/variables';
-@import '../assets/css/right-part';
-
 input, select {
   color: $color-text-darker;
   border: 1px $color-border solid;
@@ -211,7 +208,7 @@ input {
   width: 350px;
   border: 1px $color-border solid;
   border-radius: 10px;
-  background: $color-backg-right-part;
+  background: $color-backg-content;
 
   @media (max-width: 800px) {
     position: static;
@@ -264,14 +261,14 @@ input {
 
   &__input-code div {
     position: absolute;
-    
+
     /* These are set relative to the height of the input box to bound the box neatly inside. This is aesthetic to me but you may change the dimensions of course. */
     right: 0.3rem;
     top: 0.3rem;
     width: 2.6rem;
     height: 2.6rem;
     border-radius: 0.3rem;
-    
+
     /* content in the icon div is centered, without bootstrap or font-awesome you may wish to add your own text in the span */
     display: flex;
     justify-content: center;
@@ -313,7 +310,7 @@ input {
     clear: both;
     margin-right: 10px;
     width: 107px;
-    
+
     @media (max-width: 1000px) {
       width: 91px;
     }
@@ -379,7 +376,7 @@ input {
     }
 
     &:hover {
-      cursor: pointer;   
+      cursor: pointer;
     }
   }
 
