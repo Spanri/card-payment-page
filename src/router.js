@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Payment from './components/Payment.vue';
-import PaymentSuccess from './components/PaymentSuccess.vue';
-import History from './components/History.vue';
+import Payment from '@/views/Payment.vue';
+import PaymentSuccess from '@/views/PaymentSuccess.vue';
+import History from '@/views/History.vue';
 
 Vue.use(Router);
 

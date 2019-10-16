@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'history',
+  name: 'History',
   computed: {
     payments() {
       return this.$store.getters.getPayments;
@@ -37,7 +37,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .history {
   @include content;

@@ -1,5 +1,5 @@
 <template>
-  <div id="background">
+  <div id="app-wrapper">
     <div id="app">
       <Nav></Nav>
       <router-view/>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Nav from './components/Nav';
-
 export default {
   name: 'App',
-  components: { Nav, },
+  components: { 
+    Nav: () => import("@/components/Nav"),
+  },
 };
 </script>
 
@@ -21,11 +21,6 @@ export default {
   font-family: OpenSans-Bold;
   src: url(assets/fonts/OpenSans-Bold.ttf);
   src: url(assets/fonts/OpenSans-Bold.woff);
-}
-
-#background{
-  background: #101114;
-  min-height: 100vh;
 }
 
 #app {
@@ -40,6 +35,11 @@ export default {
   font-family: 'OpenSans-Bold', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &-wrapper {
+    background: #101114;
+    min-height: 100vh;
+  }
 }
 
 @media (max-width: 1000px) {

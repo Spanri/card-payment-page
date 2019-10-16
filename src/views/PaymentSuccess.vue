@@ -26,9 +26,17 @@
 
 <script>
 export default {
-  name: 'payment-success',
+  name: 'Payment-success',
   props: {
-    payment: Object,
+    payment: {
+      type: Object,
+      default: () => ({
+        accountNumber: '',
+        amount: 0,
+        cardHolder: '',
+        date: new Date(),
+      }),
+    },
   },
   data() {
     return {
@@ -46,7 +54,7 @@ export default {
 <style lang="scss" scoped>
 .payment-success {
   @include content;
-  
+
   &__value {
     color: $color-text-more-darker;
     font-family: OpenSans-Bold;
