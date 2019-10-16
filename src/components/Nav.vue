@@ -16,39 +16,18 @@
   font-size: 1.125em;
   min-width: 322px;
 
-  @media (max-width: 1000px) {
-    min-width: 200px;
-  }
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
-
-  @media (max-width: 400px) {
-    text-align: center;
-    font-size: 1em;
-  }
-
   a {
     font-family: $primary-font;
     color: $color-text-light;
     padding: 30px;
     text-decoration: none;
 
-    @media (max-width: 768px) {
-      padding: 20px;
-    }
-
-    @media (max-width: 400px) {
-      padding: 15px;
-    }
-
     &:hover {
       color: $color-text-dark;
       transition: all 0.4s ease-out;
     }
 
-    &.router-link-exact-active {
+    .router-link-exact-active {
       background-color: $color-backg-menu-active;
       color: $color-text-dark;
       pointer-events: none;
@@ -83,6 +62,33 @@
 
   &__item:nth-last-child(1) {
     color: $color-text-dark;
+  }
+}
+
+@media (max-width: 1000px) {
+  .nav {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    text-align: center;
+
+    a {
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .nav {
+    text-align: center;
+    font-size: 1em;
+
+    a {
+      padding: 15px;
+    }
   }
 }
 </style>

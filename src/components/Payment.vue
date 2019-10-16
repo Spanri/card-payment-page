@@ -111,7 +111,7 @@ export default {
       let months = [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек', ];
       return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     },
-    checkForm(e) {
+    checkForm() {
       let payment = {
         accountNumber: this.accountNumber,
         amount: this.amount,
@@ -161,6 +161,8 @@ input {
 }
 
 .payment {
+  @include content;
+
   &__info-input {
     margin: 0 10px 0 0;
   }
@@ -193,11 +195,6 @@ input {
   &__details {
     position: relative;
     height: 260px;
-
-    @media (max-width: 800px) {
-      position: static;
-      height: auto;
-    }
   }
 }
 
@@ -422,6 +419,13 @@ button {
     cursor: pointer;
     background: $color-payment-button-dark-hover;
     background: linear-gradient(0deg, $color-payment-button-dark-hover 0%, $color-payment-button-light-hover 100%);
+  }
+}
+
+@media (max-width: 800px) {
+  .card {
+    position: static;
+    height: auto;
   }
 }
 </style>

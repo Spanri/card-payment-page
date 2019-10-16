@@ -1,10 +1,26 @@
 <template>
   <div class="payment-success">
     <p>Платеж прошел успешно. Данные платежа:</p>
-    <p>Номер счета: <span>{{paym.accountNumber}}</span></p>
-    <p>Сумма платежа: <span>{{paym.amount}}</span></p>
-    <p>Держатель карты: <span>{{paym.cardHolder}}</span></p>
-    <p>Дата оплаты: <span>{{paym.date}}</span></p>
+    <p>Номер счета:
+      <span class="payment-success__value">
+        {{ paym.accountNumber }}
+      </span>
+    </p>
+    <p>Сумма платежа:
+      <span class="payment-success__value">
+        {{paym.amount}}
+      </span>
+    </p>
+    <p>Держатель карты:
+      <span class="payment-success__value">
+        {{paym.cardHolder}}
+      </span>
+    </p>
+    <p>Дата оплаты:
+      <span class="payment-success__value">
+        {{paym.date}}
+      </span>
+    </p>
   </div>
 </template>
 
@@ -28,8 +44,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-span {
-  color: $color-text-more-darker;
-  font-family: OpenSans-Bold;
+.payment-success {
+  @include content;
+  
+  &__value {
+    color: $color-text-more-darker;
+    font-family: OpenSans-Bold;
+  }
 }
 </style>

@@ -1,20 +1,24 @@
 <template>
   <div class="history">
-    <table v-if="payments.length != 0">
-      <thead>
-        <tr>
-          <th>Дата</th>
-          <th>Номер счета</th>
-          <th>Сумма платежа</th>
+    <table
+      class="history__table"
+      v-if="payments.length != 0"
+    >
+      <thead class="history__head">
+        <tr class="history__head-tr">
+          <th class="history__item">Дата</th>
+          <th class="history__item">Номер счета</th>
+          <th class="history__item">Сумма платежа</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="history__body">
         <tr
-            :key="index"
-            v-for="(payment, index) in payments">
-          <td>{{payment.date}}</td>
-          <td>{{payment.accountNumber}}</td>
-          <td>{{payment.amount}}</td>
+          v-for="(payment, index) in payments" :key="index"
+          class="history__body-tr"
+        >
+          <td class="history__item">{{payment.date}}</td>
+          <td class="history__item">{{payment.accountNumber}}</td>
+          <td class="history__item">{{payment.amount}}</td>
         </tr>
       </tbody>
     </table>
@@ -36,38 +40,45 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .history {
-  @media (max-width: 768px) {
-    flex: 100%;
-  }
-}
+  @include content;
 
-table {
-  border-collapse: collapse;
-  width: calc(100% - 30px);
-  margin: 15px;
-  margin-bottom: 0;
-  text-align: center;
-  word-break: break-all;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin: 0;
+  &__table {
+    border-collapse: collapse;
+    width: calc(100% - 30px);
+    margin: 15px;
+    margin-bottom: 0;
+    text-align: center;
+    word-break: break-all;
   }
 
-  thead {
+  &__head {
     background-color: $color-backg-menu-bottom;
 
-    th {
+    .history__item {
       padding: 15px;
       color: $color-text-light;
     }
   }
 
-  tbody tr{
-    border-bottom: 1px $color-border solid;
+  &__body {
 
-    td {
+    &-tr {
+      border-bottom: 1px $color-border solid;
+    }
+
+    .history__item {
       padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .history {
+    flex: 100%;
+
+    &__table {
+      width: 100%;
+      margin: 0;
     }
   }
 }
