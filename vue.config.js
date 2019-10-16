@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: 'card-payment-page',
+  publicPath: '',
   css: {
     loaderOptions: {
       sass: {
