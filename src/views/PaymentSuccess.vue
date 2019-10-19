@@ -56,7 +56,7 @@ export default {
   @include content;
 
   &__value {
-    color: $color-text-more-darker;
+    color: $color-gray-dark;
     font-family: OpenSans-Bold;
   }
 }

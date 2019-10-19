@@ -21,7 +21,7 @@
 <style lang="scss" scoped>
 .router-link-exact-active {
   background-color: $color-backg-menu-active;
-  color: $color-text-dark;
+  color: $color-gray-medium;
   pointer-events: none;
   transition: all 0.4s ease-out;
 }
@@ -37,13 +37,13 @@
 
   &__item {
     font-family: $primary-font;
-    color: $color-text-light;
+    color: $color-gray-light;
     padding: 30px;
     text-decoration: none;
     text-align: center;
 
     &:hover {
-      color: $color-text-dark;
+      color: $color-gray-medium;
       transition: all 0.4s ease-out;
     }
   }
@@ -69,7 +69,7 @@
   }
 
   &__item:last-child {
-    color: $color-text-dark;
+    color: $color-gray-medium;
   }
 }
 

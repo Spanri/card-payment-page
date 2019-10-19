@@ -17,14 +17,9 @@ export default {
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: OpenSans-Bold;
-  src: url(assets/fonts/OpenSans-Bold.ttf);
-  src: url(assets/fonts/OpenSans-Bold.woff);
-}
-
 ::selection {
-  background: $color-payment-button-light;
+  background: $color-selection;
+  color: white;
 }
 
 #app {

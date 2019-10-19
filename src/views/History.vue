@@ -55,7 +55,7 @@ export default {
 
     .history__item {
       padding: 15px;
-      color: $color-text-light;
+      color: $color-gray-light;
     }
   }
 

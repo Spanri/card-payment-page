@@ -1,23 +1,30 @@
 <template>
   <form class="payment" @submit.prevent="submit">
-    <PaymentInfo class="payment__info"/>
-    <div class="card">
-      <p class="card__title">Данные банковской карты</p>
-      <div class="card__details">
-        <PaymentExtCard class="card__ext-card" />
-        <PaymentIntCard class="card__int-card"/>
+    <!-- <PaymentInfo class="payment__info"/> -->
+    <div class="payment__card">
+      <p class="payment__card-title">Данные банковской карты</p>
+      <div class="payment__card-details">
+        <!-- <PaymentExtCard class="payment__ext-card" /> -->
+        <PaymentIntCard
+          class="payment__ext-card" @setIntCard="setIntCard"
+        />
+        <PaymentIntCard
+          class="payment__int-card" @setIntCard="setIntCard"
+        />
       </div>
-      <button class="card__submit">Оплатить</button>
     </div>
+    <button type="submit" class="payment__submit">
+      Оплатить
+    </button>
   </form>
 </template>
 
 <script>
 export default {
   name: 'Payment',
-  components: { 
-    PaymentInfo: () => import("@/components/PaymentInfo"),
-    PaymentExtCard: () => import("@/components/PaymentExtCard"),
+  components: {
+    //PaymentInfo: () => import("@/components/PaymentInfo"),
+    // PaymentExtCard: () => import("@/components/PaymentExtCard"),
     PaymentIntCard: () => import("@/components/PaymentIntCard"),
   },
   data() {
@@ -33,11 +40,15 @@ export default {
     };
   },
   methods: {
+    setIntCard(val) {
+      this.cardCode = val;
+      console.log(this.cardCode);
+    },
     dateFormat(date) {
       let months = [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек', ];
       return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     },
-    submit() {
+    submit2() {
       let payment = {
         accountNumber: this.accountNumber,
         amount: this.amount,
@@ -56,19 +67,44 @@ export default {
           console.log(err);
         });
     },
+    submit() {
+      this.$v.$touch();
+      // if (!this.$v.$invalid) {
+      //   this.$store.dispatch("register").then(() => {
+      //     this.$emit("next", "SignUp3");
+      //   });
+      // }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 input, select {
-  color: $color-text-darker;
+  color: $color-gray-pre-dark;
   border: 1px $color-border solid;
   padding: 10px;
   font-size: 1em;
 
   @media (max-width: 450px) {
     padding: 5px;
+  }
+}
+
+.payment {
+  @include content;
+
+  &__card {
+    &-title {
+      font-family: OpenSans-Bold, sans-serif;
+      font-size: 1.374em;
+      color: $color-gray-dark;
+    }
+
+    &-details {
+      position: relative;
+      height: 260px;
+    }
   }
 }
 
@@ -86,18 +122,7 @@ input {
   }
 }
 
-.card {
-  &__title {
-    font-family: OpenSans-Bold, sans-serif;
-    font-size: 1.374em;
-    color: $color-text-more-darker;
-  }
 
-  &__details {
-    position: relative;
-    height: 260px;
-  }
-}
 
 select {
   appearance: none;
@@ -114,12 +139,8 @@ select {
 }
 
 input::placeholder{
-  color: $color-text !important;
+  color: $color-gray-pre-medium !important;
   opacity: 1;
-}
-
-.payment {
-  @include content;
 }
 
 button {
@@ -127,7 +148,7 @@ button {
   border-radius: 30px;
   background: $color-payment-button-dark;
   background: linear-gradient(0deg, $color-payment-button-dark 0%, $color-payment-button-light 100%);
-  color: $color-text-light;
+  color: $color-gray-light;
   padding: 13px 30px;
   font-family: OpenSans-Bold, sans-serif;
   font-size: 0.875em;

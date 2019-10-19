@@ -4,34 +4,40 @@
     <p class="int-card__title">Код CVV2 / CVC2</p>
     <div class="int-card__input-group">
       <b-form-input
-        class="int-card__input" type="text"
-        v-model="$v.cardCode.$model"
-        title="Введите 3 цифры" required
+        class="int-card__input" title="Введите 3 цифры"
+        v-model="$v.cardCode.$model" @keypress="onlyNumber"
+        :state="$v.cardCode.$dirty ? !$v.cardCode.$error : null"
+        aria-describedby="int-card__invalid" maxlength="3"
       />
-      <span class="input-card__span"></span>
+      <b-form-invalid-feedback id="int-card__invalid">
+        Необходимо ввести 3 цифры.
+      </b-form-invalid-feedback>
     </div>
-    <b-form-invalid-feedback
-      :id="`input-block__invalid-feedback-${cardCode}`"
-    >
-      Необходимо ввести 3 цифры.
-    </b-form-invalid-feedback>
   </div>
 </template>
 
 <script>
 import { required, minLength, maxLength, } from 'vuelidate/lib/validators';
+import { input, } from "@/mixins/input";
 
 export default {
   name: 'PaymentIntCard',
-  props: ['cardCode',],
-  computed: {
-    cardCodeValue: {
-      get() {
-        return this.cardCode;
-      },
-      set(value) {
-        this.$emit('setCardCode', value);
-      },
+  mixins: [input,], // берем отсюда метод OnlyNumber
+  data() {
+    return {
+      cardCode: '',
+      errors: [],
+    };
+  },
+  watch: {
+    /* Отслеживаем изменение параметра invalid у
+      cardCode. Если он сменился на false, значит
+      значение больше не инвалид, то есть валид,
+      следовательно отправляем в родительский блок. */
+    '$v.cardCode.$invalid'(newVal) {
+      if (newVal == false) {
+        this.$emit('setIntCard', this.cardCode);
+      }
     },
   },
   validations: {
@@ -46,6 +52,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form-control.is-invalid ~ .invalid-feedback {
+  display: inline-block;
+}
+
+.invalid-feedback {
+  text-align: right;
+  padding: 5px 10px 0 0;
+}
+
 .int-card {
   position: absolute;
   top: 22px;
