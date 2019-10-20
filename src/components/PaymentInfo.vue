@@ -7,34 +7,30 @@
         class="info__input" title="Введите номер счета"
         v-model="$v.accountNumber.$model" @keypress="onlyNumber"
         :state="$v.accountNumber.$dirty ? !$v.accountNumber.$error : null"
-        aria-describedby="info__invalid-account-number" maxlength="3"
+        aria-describedby="info__invalid-account-number" maxlength="20"
       />
       <b-form-invalid-feedback id="info__invalid-account-number">
-        Необходимо ввести 3 цифры.
+        Необходимо ввести 20 цифр.
       </b-form-invalid-feedback>
-      <!-- <input
-        class="info__input" title="Введите номер счета" 
-        v-model="$v.accountNumberComputed.$model" type="text"
-        :state="$v.accountNumberComputed.$dirty ?  
-          $v.accountNumberComputed.$error : null"
-      >
-      {{ $v.accountNumberComputed }} -->
     </div>
     <div class="info__input-group">
       <span class="info__span">Сумма платежа:</span>
-      <input
-        class="info__input" v-model="amount"
-        type="text" title="Введите число больше 0"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        pattern="[0-9]+" required
-      >
+      <b-form-input
+        class="info__input" title="Введите сумму платежа"
+        v-model="$v.amount.$model" @keypress="onlyNumber"
+        :state="$v.amount.$dirty ? !$v.amount.$error : null"
+        aria-describedby="info__invalid-amount"
+      />
       <label> руб.</label>
+      <b-form-invalid-feedback id="info__invalid-amount">
+        Необходимо ввести сумму от 100р.
+      </b-form-invalid-feedback>
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
@@ -43,24 +39,40 @@ export default {
   data() {
     return {
       accountNumber: '',
+      amount: '',
     };
   },
-  computed: {
-    accountNumberComputed: {
-      get() {
-        return this.accountNumber;
-      },
-      set(value) {
-        this.$emit('setCardCode', value);
-        this.accountNumber = value;
-      },
+  watch: {
+    /* Отслеживаем изменение параметра invalid. Если он 
+      сменился на false, значит значение больше не инвалид, 
+      то есть валид, следовательно отправляем в родительский 
+      блок. */
+    '$v.accountNumber.$invalid'(newVal) {
+      if (newVal == false) {
+        this.$emit('setInfo', {
+          accountNumber: this.accountNumber,
+        });
+      }
+    },
+    '$v.amount.$invalid'(newVal) {
+      if (newVal == false) {
+        this.$emit('setInfo', {
+          amount: this.amount,
+        });
+      }
     },
   },
   validations: {
-    accountNumberComputed: {
+    accountNumber: {
       type: Number,
       required,
-      minLength: minLength(5),
+      minLength: minLength(20),
+      maxLength: maxLength(20),
+    },
+    amount: {
+      type: Number,
+      required,
+      maxValue: (value) => value > 100,
     },
   },
 };
@@ -68,9 +80,8 @@ export default {
 
 <style lang="scss" scoped>
 .info {
-  @include content;
 
-  &__input {
+  &__input-group {
     @include input;
 
     margin: 0 10px 0 0;
@@ -85,13 +96,18 @@ export default {
     display: inline-block;
     width: 160px;
   }
+
 }
 
 @media (max-width: 450px) {
+
   .info {
+
     &__span {
       display: block;
     }
+
   }
+
 }
 </style>

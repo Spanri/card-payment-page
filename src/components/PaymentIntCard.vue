@@ -30,10 +30,10 @@ export default {
     };
   },
   watch: {
-    /* Отслеживаем изменение параметра invalid у
-      cardCode. Если он сменился на false, значит
-      значение больше не инвалид, то есть валид,
-      следовательно отправляем в родительский блок. */
+    /* Отслеживаем изменение параметра invalid. Если он 
+      сменился на false, значит значение больше не инвалид, 
+      то есть валид, следовательно отправляем в родительский 
+      блок. */
     '$v.cardCode.$invalid'(newVal) {
       if (newVal == false) {
         this.$emit('setIntCard', this.cardCode);
@@ -62,15 +62,15 @@ export default {
 }
 
 .int-card {
-  position: absolute;
-  top: 22px;
-  right: 0px;
-  padding: 15px 0;
-  width: 380px;
-  height: 207px;
-  border: 1px $color-border solid;
-  border-radius: 10px;
-  overflow: hidden;
+  // position: absolute;
+  // top: 22px;
+  // right: 0px;
+  // padding: 15px 0;
+  // width: 380px;
+  // height: 207px;
+  // border: 1px $color-border solid;
+  // border-radius: 10px;
+  // overflow: hidden;
 
   &__title {
     text-align: right;
@@ -108,6 +108,7 @@ export default {
       visibility: visible;
       transition: .2s ease-in-out .4s;
     }
+
   }
 
   &__span{
@@ -118,14 +119,14 @@ export default {
     width: 25px;
     height: 40px;
     float: right;
-    background-image: url('../assets/hint.png');
-    background-repeat: no-repeat;
+    background: url('../assets/hint.png') no-repeat;
     background-size: 25px 25px;
     background-position: 95% 5px;
 
     &:hover {
       cursor: pointer;
     }
+
   }
 
   &__line{
@@ -134,10 +135,13 @@ export default {
     height: 37.6px;
     background: $color-border;
   }
+
 }
 
 @media (max-width: 1000px) {
+
   .int-card {
+
     &__input {
       width: 91px;
     }
@@ -146,17 +150,22 @@ export default {
       top: 8px;
       right: -120px;
     }
+
   }
+
 }
 
 @media (max-width: 800px) {
+
   .int-card {
     position: static;
     margin-top: 15px;
   }
+
 }
 
 @media (max-width: 450px) {
+
   .int-card {
     width: 280px;
     height: 206px;
@@ -173,17 +182,23 @@ export default {
       background-size: 20px 20px;
       background-position: 93% center;
     }
+
   }
+
 }
 
 @media (max-width: 400px) {
+
   .int-card {
+
     &__span {
       top: -2px;
       right: -90px;
       background-size: 15px 15px;
       background-position: 93% center;
     }
+
   }
+
 }
 </style>

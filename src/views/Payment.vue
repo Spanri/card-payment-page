@@ -1,6 +1,6 @@
 <template>
   <form class="payment" @submit.prevent="submit">
-    <!-- <PaymentInfo class="payment__info"/> -->
+    <PaymentInfo class="payment__info"/>
     <div class="payment__card">
       <p class="payment__card-title">Данные банковской карты</p>
       <div class="payment__card-details">
@@ -23,7 +23,7 @@
 export default {
   name: 'Payment',
   components: {
-    //PaymentInfo: () => import("@/components/PaymentInfo"),
+    PaymentInfo: () => import("@/components/PaymentInfo"),
     // PaymentExtCard: () => import("@/components/PaymentExtCard"),
     PaymentIntCard: () => import("@/components/PaymentIntCard"),
   },
@@ -89,15 +89,16 @@ input, select {
   @media (max-width: 450px) {
     padding: 5px;
   }
+
 }
 
 .payment {
   @include content;
 
   &__card {
+
     &-title {
-      font-family: OpenSans-Bold, sans-serif;
-      font-size: 1.374em;
+      font: 1.374em OpenSans-Bold, sans-serif;
       color: $color-gray-dark;
     }
 
@@ -105,10 +106,36 @@ input, select {
       position: relative;
       height: 260px;
     }
+
   }
+
+  &__ext-card {
+    z-index: 1;
+    position: absolute;
+    padding: 22px 15px 15px;
+    width: 350px;
+    border: 1px $color-border solid;
+    border-radius: 10px;
+    background: $color-backg-content;
+  }
+
+  &__int-card {
+    position: absolute;
+    top: 22px;
+    right: 0px;
+
+    padding: 15px 0;
+    width: 380px;
+    height: 207px;
+    border: 1px $color-border solid;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
 }
 
 input {
+
   &:invalid:focus {
     border: 1px solid red;
   }
@@ -120,9 +147,8 @@ input {
   &::-ms-clear {
     display: none;
   }
+
 }
-
-
 
 select {
   appearance: none;
@@ -136,6 +162,7 @@ select {
   &::-ms-expand {
     display: none;
   }
+
 }
 
 input::placeholder{
@@ -147,24 +174,29 @@ button {
   border: 0;
   border-radius: 30px;
   background: $color-payment-button-dark;
-  background: linear-gradient(0deg, $color-payment-button-dark 0%, $color-payment-button-light 100%);
+  background: linear-gradient(
+    0deg, $color-payment-button-dark 0%, 
+    $color-payment-button-light 100%);
   color: $color-gray-light;
   padding: 13px 30px;
-  font-family: OpenSans-Bold, sans-serif;
-  font-size: 0.875em;
+  font: .875em OpenSans-Bold, sans-serif;
   margin: 40px 15px 0 15px;
 
   &:hover {
     cursor: pointer;
     background: $color-payment-button-dark-hover;
-    background: linear-gradient(0deg, $color-payment-button-dark-hover 0%, $color-payment-button-light-hover 100%);
+    background: linear-gradient(
+      0deg, $color-payment-button-dark-hover 0%, $color-payment-button-light-hover 100%);
   }
+
 }
 
 @media (max-width: 800px) {
+
   .card {
     position: static;
     height: auto;
   }
+
 }
 </style>

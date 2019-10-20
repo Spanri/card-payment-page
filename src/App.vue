@@ -24,14 +24,16 @@ export default {
 
 #app {
   display: flex;
+  align-items: stretch;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch;
-  font-size: 16px;
+  
   max-width: 1000px;
   margin: 0 auto;
   padding: 80px 0;
-  font-family: 'OpenSans-Bold', Arial, Helvetica, sans-serif;
+  font: 16px 'OpenSans-Bold', Arial, Helvetica, sans-serif;
+
+  /* оно было изначально, я не знаю, можно ли удалить это */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -39,27 +41,34 @@ export default {
     background: #101114;
     min-height: 100vh;
   }
+
 }
 
 @media (max-width: 1000px) {
+
   #app {
     max-width: auto;
     font-size: 14px;
   }
+
 }
 
 @media (max-width: 768px) {
+
   #app {
     min-height: 100vh;
     flex-direction: column;
     justify-content: flex-start;
     padding: 0;
   }
+
 }
 
 @media (max-width: 400px) {
+
   #app {
     font-size: 12px;
   }
+
 }
 </style>

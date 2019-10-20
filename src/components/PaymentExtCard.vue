@@ -46,13 +46,13 @@ input {
 }
 
 .ext-card {
-  z-index: 1;
-  position: absolute;
-  padding: 22px 15px 15px;
-  width: 350px;
-  border: 1px $color-border solid;
-  border-radius: 10px;
-  background: $color-backg-content;
+  // z-index: 1;
+  // position: absolute;
+  // padding: 22px 15px 15px;
+  // width: 350px;
+  // border: 1px $color-border solid;
+  // border-radius: 10px;
+  // background: $color-backg-content;
 
   &__input-number:last-child {
     margin-right: 0;
@@ -80,6 +80,7 @@ input {
       border-top: 8px solid black;
       opacity: 0.5;
     }
+
   }
 
   &__cardholder {
@@ -100,17 +101,22 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    
     box-sizing: border-box;
   }
+
 }
 
 @media (max-width: 800px) {
+
   .ext-card {
     position: static;
   }
+
 }
 
 @media (max-width: 450px) {
+
   .ext-card {
     width: 250px;
 
@@ -121,7 +127,10 @@ input {
         top: -10px;
         right: 30px;
       }
+
     }
+
   }
+
 }
 </style>

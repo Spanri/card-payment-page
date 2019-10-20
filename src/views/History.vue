@@ -68,10 +68,13 @@ export default {
     .history__item {
       padding: 20px;
     }
+
   }
+   
 }
 
 @media (max-width: 768px) {
+
   .history {
     flex: 100%;
 
@@ -79,6 +82,8 @@ export default {
       width: 100%;
       margin: 0;
     }
+
   }
+  
 }
 </style>

@@ -57,7 +57,8 @@ export default {
 
   &__value {
     color: $color-gray-dark;
-    font-family: OpenSans-Bold;
+    font: OpenSans-Bold;
   }
+
 }
 </style>
