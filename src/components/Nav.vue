@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <nav class="nav">
     <router-link to="/" class="nav__item disable">
       Личный кабинет
     </router-link>
@@ -15,17 +15,11 @@
     <router-link to="/" class="nav__item disable">
       Выйти
     </router-link>
-  </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
-.router-link-exact-active {
-  background: $color-backg-menu-active;
-  background: red;
-  color: $color-gray-medium;
-  //pointer-events: none;
-  transition: all 0.4s ease-out;
-}
+
 
 .nav {
   @include disable;
@@ -48,6 +42,15 @@
       color: $color-gray-medium;
       transition: all 0.4s ease-out;
     }
+
+    &.router-link-exact-active {
+      background-color: $color-backg-menu-active;
+      background-color: red;
+      color: $color-gray-medium;
+      pointer-events: none;
+      transition: all 0.4s ease-out;
+    }
+
   }
 
   /* полоса после 1ого пункта меню */
@@ -56,7 +59,7 @@
   }
 
   /* полоса после 4ого пункта меню */
-  &__item:nth-child(4) {
+  &__item:first-child + * + * + * {
     border-bottom: 1px $color-stroke-light solid;
   }
 
