@@ -2,14 +2,19 @@
   <div class="ext-card">
     <span>Номер карты</span>
     <br>
-    <div class="ext-card__input-number">
-      <input
-        v-for="(elem, index) in ['cardNumber1', 'cardNumber2', 'cardNumber3', 'cardNumber4']" :key="index"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        maxlength="4" title="Введите 4 цифры"
-        pattern="[0-9]{4}" required
-        type="text" :v-model="elem"
-      >
+    <div class="ext-card__input-number-group">
+      <!-- <input
+        v-for="index in 4" :key="index"
+        class="ext-card__input-number"
+        title="Введите 4 цифры" minlength="4"
+        v-model="$v.cardNumber[index].$model" @keypress="onlyNumber"
+        :class="{
+          'input-error': 
+            $v.cardNumber[index].$invalid && $v.cardNumber[index].$dirty,
+          'input-success': !$v.cardNumber[index].$invalid}"
+        @input="!$v.cardNumber[index].$invalid ? 
+          setInfo('cardHolder', $v.cardNumber[index].$model) : ''"
+      > -->
     </div>
     <span>Срок действия</span>
     <br>
@@ -31,14 +36,68 @@
     </div>
     <br>
     <input
-      class="ext-card__cardholder" v-model="cardHolder"
-      type="text" placeholder="Держатель карты"
-      title="Введите имя и фамилию держателя карты. Только латинские буквы и пробелы" pattern="[a-zA-Z ]{4,}"
-      oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')"
-      minlength="4" required
-    >
+        class="ext-card__cardholder" placeholder="Держатель карты"
+        title="Введите имя и фамилию держателя карты" minlength="4"
+        v-model="$v.cardHolder.$model" @keypress="onlyLatinLetters"
+        :class="{
+          'input-error': $v.cardHolder.$invalid && $v.cardHolder.$dirty,
+          'input-success': !$v.cardHolder.$invalid}"
+        @input="!$v.cardHolder.$invalid ? 
+          setInfo('cardHolder', $v.cardHolder.$model) : ''"
+      >
+      <div 
+        class="error" 
+        v-if="!$v.cardHolder.required && $v.cardHolder.$dirty"
+      >
+        Поле обязательно.
+      </div>
+      <div 
+        class="error" 
+        v-if="!$v.cardHolder.minLength && $v.cardHolder.$dirty"
+      >
+        Необходимо ввести как минимум 4 символа.
+      </div>
   </div>
 </template>
+
+<script>
+import { required, minLength, } from 'vuelidate/lib/validators';
+import { input, } from "@/mixins/input";
+
+export default {
+  name: 'PaymentInfo',
+  mixins: [input,], // берем отсюда метод onlyLatinLetters, onlyNumber
+  data() {
+    return {
+      cardNumber: [],
+      cardHolder: '',
+    };
+  },
+  methods: {
+    setInfo(valName, val) {
+      this.$emit('setInfo', valName, val);
+    },
+  },
+  validations: {
+    cardHolder: {
+      type: String,
+      required,
+      minLength: minLength(4),
+    },
+    cardNumber: {
+      0: {
+        required,
+      },
+      1: {
+        required,
+      },
+      2: {
+        required,
+      },
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 input {
@@ -46,6 +105,7 @@ input {
 }
 
 .ext-card {
+  @include error;
   // z-index: 1;
   // position: absolute;
   // padding: 22px 15px 15px;
@@ -54,11 +114,11 @@ input {
   // border-radius: 10px;
   // background: $color-backg-content;
 
-  &__input-number:last-child {
+  &__input-number-group:last-child {
     margin-right: 0;
   }
 
-  &__input-number input {
+  &__input-number-group input {
     width: 40px;
   }
 

@@ -11,7 +11,7 @@
           <th class="history__item">Сумма платежа</th>
         </tr>
       </thead>
-      <tbody class="history__body">
+      <tbody class="history__body" v-cloak>
         <tr
           v-for="(payment, index) in payments" :key="index"
           class="history__body-tr"
@@ -38,6 +38,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
+
 .history {
   @include content;
 

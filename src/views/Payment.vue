@@ -1,15 +1,16 @@
 <template>
   <form class="payment" @submit.prevent="submit">
-    <PaymentInfo class="payment__info"/>
+    <PaymentInfo class="payment__info" @setInfo="setInfo" />
     <div class="payment__card">
       <p class="payment__card-title">Данные банковской карты</p>
       <div class="payment__card-details">
-        <!-- <PaymentExtCard class="payment__ext-card" /> -->
-        <PaymentIntCard
-          class="payment__ext-card" @setIntCard="setIntCard"
+        <PaymentExtCard 
+          class="payment__ext-card" 
+          @setExtCard="setExtCard"
         />
         <PaymentIntCard
-          class="payment__int-card" @setIntCard="setIntCard"
+          class="payment__int-card" 
+          @setIntCard="setIntCard"
         />
       </div>
     </div>
@@ -24,7 +25,7 @@ export default {
   name: 'Payment',
   components: {
     PaymentInfo: () => import("@/components/PaymentInfo"),
-    // PaymentExtCard: () => import("@/components/PaymentExtCard"),
+    PaymentExtCard: () => import("@/components/PaymentExtCard"),
     PaymentIntCard: () => import("@/components/PaymentIntCard"),
   },
   data() {
@@ -40,9 +41,14 @@ export default {
     };
   },
   methods: {
+    setExtCard(valName, val) {
+      this[valName] = val;
+    },
     setIntCard(val) {
       this.cardCode = val;
-      console.log(this.cardCode);
+    },
+    setInfo(valName, val) {
+      this[valName] = val;
     },
     dateFormat(date) {
       let months = [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек', ];

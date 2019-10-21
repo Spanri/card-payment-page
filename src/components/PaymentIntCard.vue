@@ -3,15 +3,21 @@
     <div class="int-card__line"></div>
     <p class="int-card__title">Код CVV2 / CVC2</p>
     <div class="int-card__input-group">
-      <b-form-input
+      <input
         class="int-card__input" title="Введите 3 цифры"
         v-model="$v.cardCode.$model" @keypress="onlyNumber"
-        :state="$v.cardCode.$dirty ? !$v.cardCode.$error : null"
-        aria-describedby="int-card__invalid" maxlength="3"
-      />
-      <b-form-invalid-feedback id="int-card__invalid">
+        :class="{
+          'input-error': $v.cardCode.$invalid && $v.cardCode.$dirty,
+          'input-success': !$v.cardCode.$invalid}"
+        maxlength="3"
+        @input="!$v.cardCode.$invalid ? setIntСard() : ''"
+      >
+      <div 
+        class="error" 
+        v-if="!$v.cardCode.minLength && $v.cardCode.$dirty"
+      >
         Необходимо ввести 3 цифры.
-      </b-form-invalid-feedback>
+      </div>
     </div>
   </div>
 </template>
@@ -22,22 +28,16 @@ import { input, } from "@/mixins/input";
 
 export default {
   name: 'PaymentIntCard',
-  mixins: [input,], // берем отсюда метод OnlyNumber
+  mixins: [input,], // берем отсюда метод onlyNumber
   data() {
     return {
       cardCode: '',
       errors: [],
     };
   },
-  watch: {
-    /* Отслеживаем изменение параметра invalid. Если он 
-      сменился на false, значит значение больше не инвалид, 
-      то есть валид, следовательно отправляем в родительский 
-      блок. */
-    '$v.cardCode.$invalid'(newVal) {
-      if (newVal == false) {
-        this.$emit('setIntCard', this.cardCode);
-      }
+  methods: {
+    setIntCard() {
+      this.$emit('setIntCard', this.$v.cardCode.$model);
     },
   },
   validations: {
@@ -71,6 +71,14 @@ export default {
   // border: 1px $color-border solid;
   // border-radius: 10px;
   // overflow: hidden;
+  @include error;
+
+  /* переопределение */
+  .error {
+    display: inline-block;
+    text-align: right;
+    padding-right: 7px;
+  }
 
   &__title {
     text-align: right;
