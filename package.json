@@ -8,8 +8,8 @@
     "deploy": "node ./node_modules/vue-gh-pages/index.js -b gh-pages",
     "lint": "vue-cli-service lint"
   },
-  "wst": "/dist/",
   "homepage": "https://github.com/Spanri/card-payment-page",
+  "wst": "/dist/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
