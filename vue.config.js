@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: '/card-payment-page/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/card-payment-page/'
+    : '/',
   css: {
     loaderOptions: {
       sass: {
