@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service lint --fix && vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "node ./node_modules/vue-gh-pages/index.js -b gh-pages",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js",
     "lint": "vue-cli-service lint"
   },
   "homepage": "https://github.com/Spanri/card-payment-page",
