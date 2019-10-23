@@ -3,37 +3,40 @@
     <span>Номер карты</span>
     <br>
     <div class="ext-card__input-number-group">
-      <!-- <input
-        v-for="index in 4" :key="index"
+      <input
+        v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index"
         class="ext-card__input-number"
-        title="Введите 4 цифры" minlength="4"
-        v-model="$v.cardNumber[index].$model" @keypress="onlyNumber"
+        maxlength="4" title="Введите 4 цифры"
+        v-model="v.$model" @keypress="onlyNumber"
         :class="{
-          'input-error': 
-            $v.cardNumber[index].$invalid && $v.cardNumber[index].$dirty,
-          'input-success': !$v.cardNumber[index].$invalid}"
-        @input="!$v.cardNumber[index].$invalid ? 
-          setInfo('cardHolder', $v.cardNumber[index].$model) : ''"
-      > -->
+          'input-error': v.$anyError && v.$dirty,
+          'input-success': !v.$invalid}"
+        @input="!v.$invalid ? setInfo('cardHolder', v.$model) : ''"
+      >
+      <div v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index + 100">  
+        <div class="error" v-if="!v.required && v.$dirty">
+          Поле {{ +index + 1 }} обязательно.
+        </div>
+        <div class="error" v-if="!v.minLength && v.$dirty">
+          В поле {{ +index + 1 }} необходимо ввести 4 символа.
+        </div>
+         <!-- {{ v }} -->
+      </div>
     </div>
     <span>Срок действия</span>
     <br>
     <!-- Месяц срока действия -->
-    <div class="ext-card__select">
-      <select>
-        <option v-for="(elem, index) in 12" :key="index">
-          {{index + 1}}
-        </option>
-      </select>
-    </div>
+    <select class="ext-card__select ext-card__select_month">
+      <option v-for="(elem, index) in 12" :key="index">
+        {{index + 1}}
+      </option>
+    </select>
     <!-- Год срока действия -->
-    <div class="ext-card__select">
-      <select>
-        <option v-for="(elem, index) in 50" :key="index">
-          {{index + 1980}}
-        </option>
-      </select>
-    </div>
+    <select class="ext-card__select ext-card__select_year">
+      <option v-for="(elem, index) in 50" :key="index">
+        {{index + 1980}}
+      </option>
+    </select>
     <br>
     <input
         class="ext-card__cardholder" placeholder="Держатель карты"
@@ -69,8 +72,12 @@ export default {
   mixins: [input,], // берем отсюда метод onlyLatinLetters, onlyNumber
   data() {
     return {
-      cardNumber: [],
+      cardNumber: ['', '', '',],
       cardHolder: '',
+      date: {
+        month: '',
+        year: '',
+      },
     };
   },
   methods: {
@@ -85,14 +92,11 @@ export default {
       minLength: minLength(4),
     },
     cardNumber: {
-      0: {
+      required,
+      minLength: minLength(3),
+      $each: {
         required,
-      },
-      1: {
-        required,
-      },
-      2: {
-        required,
+        minLength: minLength(3),
       },
     },
   },
@@ -100,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input {
+input, select {
   @include input;
 }
 
@@ -118,13 +122,23 @@ input {
     margin-right: 0;
   }
 
-  &__input-number-group input {
+  &__input-number {
     width: 40px;
+    margin: 10px 0;
+  }
+
+  &__input-number + &__input-number {
+    margin-left: 10px;
   }
 
   &__select {
     position: relative;
     display: inline;
+    margin: 10px 0;
+
+    &_month {
+      margin-right: 10px;
+    }
 
     &:after {
       content: "v";
