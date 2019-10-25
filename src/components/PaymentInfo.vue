@@ -17,7 +17,7 @@
             $event.target.nextElementSibling.focus() : ''"
       >
       <div 
-        class="error" 
+        class="error"
         v-if="!$v.accountNumber.required && $v.accountNumber.$dirty"
       >
         Поле обязательно.
