@@ -10,7 +10,7 @@
           'input-error': $v.cardCode.$invalid && $v.cardCode.$dirty,
           'input-success': !$v.cardCode.$invalid}"
         maxlength="3"
-        @input="!$v.cardCode.$invalid ? setIntCard() : ''"
+        @input="!$v.cardCode.$invalid ? setInfo() : ''"
       >
       <div 
         class="error" 
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { required, minLength, maxLength, } from 'vuelidate/lib/validators';
+import { required, minLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
@@ -32,12 +32,12 @@ export default {
   data() {
     return {
       cardCode: '',
-      errors: [],
     };
   },
   methods: {
-    setIntCard() {
-      this.$emit('setIntCard', this.$v.cardCode.$model);
+    setInfo() {
+      console.log(this.$v.cardCode.$model);
+      this.$emit('setInfo', 'cardCode', this.$v.cardCode.$model);
     },
   },
   validations: {
@@ -45,7 +45,6 @@ export default {
       type: Number,
       required,
       minLength: minLength(3),
-      maxLength: maxLength(3),
     },
   },
 };

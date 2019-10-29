@@ -5,7 +5,7 @@
       <p class="payment__card-title">Данные банковской карты</p>
       <div class="payment__card-details">
         <PaymentExtCard class="payment__ext-card" @setInfo="setInfo" />
-        <PaymentIntCard class="payment__int-card" @setIntCard="setIntCard" />
+        <PaymentIntCard class="payment__int-card" @setInfo="setInfo" />
       </div>
     </div>
     <button type="submit" class="payment__submit">
@@ -26,18 +26,12 @@ export default {
     return {
       accountNumber: '',
       amount: '',
-      cardNumber1: '',
-      cardNumber2: '',
-      cardNumber3: '',
-      cardNumber4: '',
+      cardNumber: ['', '', '', '',],
       cardHolder: '',
       cardCode: '',
     };
   },
   methods: {
-    setIntCard(val) {
-      this.cardCode = val;
-    },
     setInfo(valName, val) {
       console.log(valName, val);
       this[valName] = val;
@@ -50,10 +44,35 @@ export default {
       let payment = {
         accountNumber: this.accountNumber,
         amount: this.amount,
+        cardNumber: this.cardNumber,
         cardHolder: this.cardHolder,
+        cardCode: this.cardCode,
         date: this.dateFormat(new Date()),
       };
       this.$store.dispatch('addPayment', payment)
+      .then(() => {
+        this.$router.push({
+          name: 'payment-success',
+          params: {
+            payment: payment,
+          },
+        });
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    submit() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        let payment = {
+          accountNumber: this.accountNumber,
+          amount: this.amount,
+          cardNumber: this.cardNumber,
+          cardHolder: this.cardHolder,
+          cardCode: this.cardCode,
+          date: this.dateFormat(new Date()),
+        };
+        this.$store.dispatch('addPayment', payment)
         .then(() => {
           this.$router.push({
             name: 'payment-success',
@@ -64,14 +83,7 @@ export default {
         }).catch(err => {
           console.log(err);
         });
-    },
-    submit() {
-      this.$v.$touch();
-      // if (!this.$v.$invalid) {
-      //   this.$store.dispatch("register").then(() => {
-      //     this.$emit("next", "SignUp3");
-      //   });
-      // }
+      }
     },
   },
 };

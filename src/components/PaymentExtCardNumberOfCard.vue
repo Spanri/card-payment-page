@@ -1,6 +1,11 @@
 <template>
   <div class="number-of-card">
-    <span>Номер карты</span>
+    <span>Номер карты </span>
+    <span v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index + 100">  
+      <span class="error" v-if="v.name.$invalid && v.name.$dirty">
+         Поля обязательны (по 4 символа).
+      </span>
+    </span>
     <br>
     <div class="number-of-card__input-number-group">
       <input
@@ -13,14 +18,6 @@
           'input-success': !v.name.$invalid}"
         @input="!v.name.$invalid ? setInfo(index, v.name.$model) : ''"
       >
-      <div v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index + 100">  
-        <span class="error" v-if="!v.name.required && v.name.$dirty">
-          Поле {{ +index + 1 }} обязательно.
-        </span>
-        <span class="error" v-if="!v.name.minLength && v.name.$dirty">
-          В поле {{ +index + 1 }} нужно ввести 4 символа.
-        </span>
-      </div>
     </div>
   </div>
 </template>
@@ -34,7 +31,8 @@ export default {
   mixins: [input,], // берем отсюда метод onlyNumber
   data() {
     return {
-      cardNumber: [ {name: '',}, {name: '',}, {name: '',}, ],
+      cardNumber: [ {name: '',}, {name: '',}, 
+        {name: '',}, {name: '',}, ],
     };
   },
   methods: {
