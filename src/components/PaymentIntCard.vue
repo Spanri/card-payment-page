@@ -10,7 +10,7 @@
           'input-error': $v.cardCode.$invalid && $v.cardCode.$dirty,
           'input-success': !$v.cardCode.$invalid}"
         maxlength="3"
-        @input="!$v.cardCode.$invalid ? setIntСard() : ''"
+        @input="!$v.cardCode.$invalid ? setIntCard() : ''"
       >
       <div 
         class="error" 

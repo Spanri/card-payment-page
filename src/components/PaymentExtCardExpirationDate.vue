@@ -1,61 +1,36 @@
 <template>
-  <div class="ext-card">
-    <PaymentExtCardNumberOfCard 
-      class="ext-card__card-number"
-      @setInfo="setInfo"
-    />
-    <PaymentExtCardExpirationDate
-      class="ext-card__expiration-date"
-      @setInfo="setInfo"/>
+  <div class="expiration-date">
+    <span>Срок действия</span>
     <br>
-    <input
-        class="ext-card__cardholder" placeholder="Держатель карты"
-        title="Введите имя и фамилию держателя карты" minlength="4"
-        v-model="$v.cardHolder.$model" @keypress="onlyLatinLetters"
-        :class="{
-          'input-error': $v.cardHolder.$invalid && $v.cardHolder.$dirty,
-          'input-success': !$v.cardHolder.$invalid}"
-        @input="!$v.cardHolder.$invalid ? 
-          setInfo('cardHolder', $v.cardHolder.$model) : ''"
-      >
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.required && $v.cardHolder.$dirty"
-      >
-        Поле обязательно.
-      </div>
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.minLength && $v.cardHolder.$dirty"
-      >
-        Необходимо ввести как минимум 4 символа.
-      </div>
+    <!-- Месяц срока действия -->
+    <select class="expiration-date__select expiration-date__select_month">
+      <option v-for="(elem, index) in 12" :key="index">
+        {{index + 1}}
+      </option>
+    </select>
+    <!-- Год срока действия -->
+    <select class="expiration-date__select expiration-date__select_year">
+      <option v-for="(elem, index) in 50" :key="index">
+        {{index + 1980}}
+      </option>
+    </select>
   </div>
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
-import { input, } from "@/mixins/input";
-
 export default {
-  name: 'PaymentExtCard',
-  mixins: [input,], // берем отсюда метод onlyLatinLetters, onlyNumber
-  components: {
-    PaymentExtCardNumberOfCard: () => 
-      import("@/components/PaymentExtCardNumberOfCard"),
-    PaymentExtCardExpirationDate: () => 
-      import("@/components/PaymentExtCardExpirationDate"),
+  name: 'PaymentExtCardExpirationDate',
+  data() {
+    return {
+      date: {
+        month: '',
+        year: '',
+      },
+    };
   },
   methods: {
     setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
-    },
-  },
-  validations: {
-    cardHolder: {
-      type: String,
-      required,
-      minLength: minLength(4),
+      this.$emit('setDate', valName, val);
     },
   },
 };
@@ -66,7 +41,7 @@ input, select {
   @include input;
 }
 
-.ext-card {
+.expiration-date {
   @include error;
   // z-index: 1;
   // position: absolute;
@@ -141,7 +116,7 @@ input, select {
 
 @media (max-width: 800px) {
 
-  .ext-card {
+  .expiration-date {
     position: static;
   }
 
@@ -149,7 +124,7 @@ input, select {
 
 @media (max-width: 450px) {
 
-  .ext-card {
+  .expiration-date {
     width: 250px;
 
     &__select {

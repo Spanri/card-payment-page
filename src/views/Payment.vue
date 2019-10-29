@@ -4,14 +4,8 @@
     <div class="payment__card">
       <p class="payment__card-title">Данные банковской карты</p>
       <div class="payment__card-details">
-        <PaymentExtCard 
-          class="payment__ext-card" 
-          @setExtCard="setExtCard"
-        />
-        <PaymentIntCard
-          class="payment__int-card" 
-          @setIntCard="setIntCard"
-        />
+        <PaymentExtCard class="payment__ext-card" @setInfo="setInfo" />
+        <PaymentIntCard class="payment__int-card" @setIntCard="setIntCard" />
       </div>
     </div>
     <button type="submit" class="payment__submit">
@@ -41,13 +35,11 @@ export default {
     };
   },
   methods: {
-    setExtCard(valName, val) {
-      this[valName] = val;
-    },
     setIntCard(val) {
       this.cardCode = val;
     },
     setInfo(valName, val) {
+      console.log(valName, val);
       this[valName] = val;
     },
     dateFormat(date) {

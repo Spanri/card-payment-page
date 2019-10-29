@@ -1,35 +1,27 @@
 <template>
-  <div class="ext-card">
-    <PaymentExtCardNumberOfCard 
-      class="ext-card__card-number"
-      @setInfo="setInfo"
-    />
-    <PaymentExtCardExpirationDate
-      class="ext-card__expiration-date"
-      @setInfo="setInfo"/>
+  <div class="number-of-card">
+    <span>Номер карты</span>
     <br>
-    <input
-        class="ext-card__cardholder" placeholder="Держатель карты"
-        title="Введите имя и фамилию держателя карты" minlength="4"
-        v-model="$v.cardHolder.$model" @keypress="onlyLatinLetters"
+    <div class="number-of-card__input-number-group">
+      <input
+        v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index"
+        class="number-of-card__input-number"
+        maxlength="4" title="Введите 4 цифры"
+        v-model="v.name.$model" @keypress="onlyNumber"
         :class="{
-          'input-error': $v.cardHolder.$invalid && $v.cardHolder.$dirty,
-          'input-success': !$v.cardHolder.$invalid}"
-        @input="!$v.cardHolder.$invalid ? 
-          setInfo('cardHolder', $v.cardHolder.$model) : ''"
+          'input-error': v.name.$anyError && v.name.$dirty,
+          'input-success': !v.name.$invalid}"
+        @input="!v.name.$invalid ? setInfo(index, v.name.$model) : ''"
       >
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.required && $v.cardHolder.$dirty"
-      >
-        Поле обязательно.
+      <div v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index + 100">  
+        <span class="error" v-if="!v.name.required && v.name.$dirty">
+          Поле {{ +index + 1 }} обязательно.
+        </span>
+        <span class="error" v-if="!v.name.minLength && v.name.$dirty">
+          В поле {{ +index + 1 }} нужно ввести 4 символа.
+        </span>
       </div>
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.minLength && $v.cardHolder.$dirty"
-      >
-        Необходимо ввести как минимум 4 символа.
-      </div>
+    </div>
   </div>
 </template>
 
@@ -38,24 +30,27 @@ import { required, minLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
-  name: 'PaymentExtCard',
-  mixins: [input,], // берем отсюда метод onlyLatinLetters, onlyNumber
-  components: {
-    PaymentExtCardNumberOfCard: () => 
-      import("@/components/PaymentExtCardNumberOfCard"),
-    PaymentExtCardExpirationDate: () => 
-      import("@/components/PaymentExtCardExpirationDate"),
+  name: 'PaymentExtCardNumberOfCard',
+  mixins: [input,], // берем отсюда метод onlyNumber
+  data() {
+    return {
+      cardNumber: [ {name: '',}, {name: '',}, {name: '',}, ],
+    };
   },
   methods: {
-    setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
+    setInfo(index, val) {
+      this.$emit('setInfo', 'cardNumber[' + index + ']', val);
     },
   },
   validations: {
-    cardHolder: {
-      type: String,
+    cardNumber: {
       required,
-      minLength: minLength(4),
+      $each: {
+        name: {
+          required,
+          minLength: minLength(4),
+        },
+      },
     },
   },
 };
@@ -66,7 +61,7 @@ input, select {
   @include input;
 }
 
-.ext-card {
+.number-of-card {
   @include error;
   // z-index: 1;
   // position: absolute;
@@ -141,7 +136,7 @@ input, select {
 
 @media (max-width: 800px) {
 
-  .ext-card {
+  .number-of-card {
     position: static;
   }
 
@@ -149,7 +144,7 @@ input, select {
 
 @media (max-width: 450px) {
 
-  .ext-card {
+  .number-of-card {
     width: 250px;
 
     &__select {
