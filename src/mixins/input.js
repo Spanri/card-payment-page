@@ -7,7 +7,6 @@ export const input = {
       }
     },
     onlyLatinLetters(event) {
-      console.log(event.key);
       if (/[^a-zA-Z ]/i.test(event.key)) {
         event.preventDefault();
       }

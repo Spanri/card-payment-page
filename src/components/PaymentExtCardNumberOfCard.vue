@@ -16,7 +16,7 @@
         :class="{
           'input-error': v.name.$anyError && v.name.$dirty,
           'input-success': !v.name.$invalid}"
-        @input="!v.name.$invalid ? setInfo(index, v.name.$model) : ''"
+        @input="!v.name.$invalid ? setInfo(index, v.name) : ''"
       >
     </div>
   </div>

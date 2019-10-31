@@ -36,8 +36,7 @@ export default {
   },
   methods: {
     setInfo() {
-      console.log(this.$v.cardCode.$model);
-      this.$emit('setInfo', 'cardCode', this.$v.cardCode.$model);
+      this.$emit('setInfo', 'cardCode', this.$v.cardCode);
     },
   },
   validations: {

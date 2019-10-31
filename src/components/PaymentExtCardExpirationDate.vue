@@ -3,13 +3,21 @@
     <span>Срок действия</span>
     <br>
     <!-- Месяц срока действия -->
-    <select class="expiration-date__select expiration-date__select_month">
+    <select 
+      class="expiration-date__select expiration-date__select_month"
+      v-model="$v.date.$each.$iter.month.$model"
+      @change="setInfo('date.month', $v.date.$each.$iter.month)"
+    >
       <option v-for="(elem, index) in 12" :key="index">
         {{index + 1}}
       </option>
     </select>
     <!-- Год срока действия -->
-    <select class="expiration-date__select expiration-date__select_year">
+    <select 
+      class="expiration-date__select expiration-date__select_year"
+      v-model="$v.date.$each.$iter.year.$model"
+      @change="setInfo('date.year', $v.date.$each.$iter.year)"
+    >
       <option v-for="(elem, index) in 50" :key="index">
         {{index + 1980}}
       </option>
@@ -23,14 +31,22 @@ export default {
   data() {
     return {
       date: {
-        month: '',
-        year: '',
+        month: '1',
+        year: '2010',
       },
     };
   },
   methods: {
     setInfo(valName, val) {
-      this.$emit('setDate', valName, val);
+      this.$emit('setInfo', valName, val);
+    },
+  },
+  validations: {
+    date: {
+      $each: {
+        month: {},
+        year: {},
+      },
     },
   },
 };

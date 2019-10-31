@@ -12,7 +12,7 @@
         maxlength="20"
         @input="
           !$v.accountNumber.$invalid ? 
-            setInfo('accountNumber', $v.accountNumber.$model) : '';
+            setInfo('accountNumber', $v.accountNumber) : '';
           !$v.accountNumber.$invalid && $v.accountNumber.$model.length == 20 ? 
             $event.target.nextElementSibling.focus() : ''"
       >
@@ -39,7 +39,7 @@
           'input-success': !$v.amount.$invalid}" 
         maxlength="20"
         @input="!$v.amount.$invalid ? 
-          setInfo('amount', $v.amount.$model) : ''"
+          setInfo('amount', $v.amount) : ''"
       >
       <label>&nbsp;&nbsp;руб.</label>
       <div class="error" v-if="!$v.amount.required && $v.amount.$dirty">

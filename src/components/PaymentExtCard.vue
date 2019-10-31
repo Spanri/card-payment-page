@@ -7,29 +7,10 @@
     <PaymentExtCardExpirationDate
       class="ext-card__expiration-date"
       @setInfo="setInfo"/>
-    <br>
-    <input
-        class="ext-card__cardholder" placeholder="Держатель карты"
-        title="Введите имя и фамилию держателя карты" minlength="4"
-        v-model="$v.cardHolder.$model" @keypress="onlyLatinLetters"
-        :class="{
-          'input-error': $v.cardHolder.$invalid && $v.cardHolder.$dirty,
-          'input-success': !$v.cardHolder.$invalid}"
-        @input="!$v.cardHolder.$invalid ? 
-          setInfo('cardHolder', $v.cardHolder.$model) : ''"
-      >
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.required && $v.cardHolder.$dirty"
-      >
-        Поле обязательно.
-      </div>
-      <div 
-        class="error" 
-        v-if="!$v.cardHolder.minLength && $v.cardHolder.$dirty"
-      >
-        Необходимо ввести как минимум 4 символа.
-      </div>
+    <PaymentExtCardHolder 
+      class="ext-card__cardholder"
+      @setInfo="setInfo"
+    />
   </div>
 </template>
 
@@ -45,6 +26,8 @@ export default {
       import("@/components/PaymentExtCardNumberOfCard"),
     PaymentExtCardExpirationDate: () => 
       import("@/components/PaymentExtCardExpirationDate"),
+    PaymentExtCardHolder: () => 
+      import("@/components/PaymentExtCardHolder"),
   },
   methods: {
     setInfo(valName, val) {
