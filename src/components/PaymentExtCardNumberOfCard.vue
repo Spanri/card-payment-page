@@ -1,55 +1,57 @@
 <template>
   <div class="number-of-card">
     <span>Номер карты </span>
-    <span v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index + 100">  
-      <span class="error" v-if="v.name.$invalid && v.name.$dirty">
+    <span v-for="(v, index) in cardNumber" :key="index + 100">  
+      <span class="error" v-if="v.$invalid && v.$dirty">
          Поля обязательны (по 4 символа).
       </span>
     </span>
     <br>
     <div class="number-of-card__input-number-group">
       <input
-        v-for="(v, index) in $v.cardNumber.$each.$iter" :key="index"
+        v-for="(v, index) in cardNumber" :key="index"
         class="number-of-card__input-number"
         maxlength="4" title="Введите 4 цифры"
-        v-model="v.name.$model" @keypress="onlyNumber"
+        v-model="v.$model" @keypress="onlyNumber"
         :class="{
-          'input-error': v.name.$anyError && v.name.$dirty,
-          'input-success': !v.name.$invalid}"
-        @input="!v.name.$invalid ? setInfo(index, v.name) : ''"
+          'input-error': v.$anyError && v.$dirty,
+          'input-success': !v.$invalid}"
       >
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
+import getComputedArray from 'vue-computed-array';
 
 export default {
   name: 'PaymentExtCardNumberOfCard',
   mixins: [input,], // берем отсюда метод onlyNumber
-  data() {
-    return {
-      cardNumber: [ {name: '',}, {name: '',}, 
-        {name: '',}, {name: '',}, ],
-    };
-  },
-  methods: {
-    setInfo(index, val) {
-      this.$emit('setInfo', 'cardNumber[' + index + ']', val);
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  validations: {
-    cardNumber: {
-      required,
-      $each: {
-        name: {
-          required,
-          minLength: minLength(4),
-        },
+  computed: {
+    cardNumber: getComputedArray({
+      get() { return this.value; },
+      set(value) { 
+        this.v.$touch();
+        this.$emit('input', value); 
       },
     },
+    // {
+    //   get: v => { return { foo: v};},
+    //   set: v => { return { id: v.foo.key, name: v.foo.title, };},
+    //   map: { foo: { key: 'id', },},
+    // }
+    ),
   },
 };
 </script>
@@ -61,13 +63,6 @@ input, select {
 
 .number-of-card {
   @include error;
-  // z-index: 1;
-  // position: absolute;
-  // padding: 22px 15px 15px;
-  // width: 350px;
-  // border: 1px $color-border solid;
-  // border-radius: 10px;
-  // background: $color-backg-content;
 
   &__input-number-group:last-child {
     margin-right: 0;

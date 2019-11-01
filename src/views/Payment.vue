@@ -1,11 +1,23 @@
 <template>
-  <form class="payment" @submit.prevent="submit">
-    <PaymentInfo class="payment__info" @setInfo="setInfo" />
+  <form 
+    class="payment" @submit.prevent="submit"
+    novalidate
+  >
+    <PaymentInfo 
+      class="payment__info" 
+      v-model="info" :v="$v.info"
+    />
     <div class="payment__card">
       <p class="payment__card-title">Данные банковской карты</p>
       <div class="payment__card-details">
-        <PaymentExtCard class="payment__ext-card" @setInfo="setInfo" />
-        <PaymentIntCard class="payment__int-card" @setInfo="setInfo" />
+        <PaymentExtCard 
+          class="payment__ext-card"
+          v-model="extCard" :v="$v.extCard"
+        />
+        <PaymentIntCard 
+          class="payment__int-card"
+          v-model="intCard" :v="$v.intCard"
+        />
       </div>
     </div>
     <button type="submit" class="payment__submit">
@@ -15,6 +27,8 @@
 </template>
 
 <script>
+import { required, minLength, } from 'vuelidate/lib/validators';
+
 export default {
   name: 'Payment',
   components: {
@@ -24,12 +38,65 @@ export default {
   },
   data() {
     return {
-      accountNumber: '',
-      amount: '',
-      cardNumber: ['', '', '', '',],
-      cardHolder: '',
-      cardCode: '',
+      info: {
+        accountNumber: '', 
+        amount: '',
+      },
+      extCard: {
+        cardNumber: ['', '', '', '',],
+        date: {
+          month: (new Date()).getMonth(),
+          year: (new Date()).getFullYear(),
+        },
+        cardHolder: '',
+      },
+      intCard: {
+        cardCode: '',
+      },
     };
+  },
+  validations: {
+    info: {
+      accountNumber: {
+        type: Number,
+        required,
+        minLength: minLength(20),
+      },
+      amount: {
+        type: Number,
+        required,
+        minValue: (value) => value >= 100,
+      },
+    },
+    extCard : {
+      cardNumber: {
+        required,
+        $each: {
+          name: {
+            required,
+            minLength: minLength(4),
+          },
+        },
+      },
+      date: {
+        $each: {
+          month: {},
+          year: {},
+        },
+      },
+      cardHolder: {
+        type: String,
+        required,
+        minLength: minLength(3), // 1 для фамилии + 1 пробел + 1 для имени
+      },
+    },
+    intCard: {
+      cardCode: {
+        type: Number,
+        required,
+        minLength: minLength(3),
+      },
+    },
   },
   methods: {
     setInfo(valName, val) {

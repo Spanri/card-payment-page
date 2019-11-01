@@ -3,50 +3,45 @@
     <input
       class="cardholder__input" placeholder="Держатель карты"
       title="Введите имя и фамилию держателя карты" minlength="4"
-      v-model="$v.cardHolder.$model" @keypress="onlyLatinLetters"
+      v-model="cardHolder" @keypress="onlyLatinLetters"
       :class="{
-        'input-error': $v.cardHolder.$invalid && $v.cardHolder.$dirty,
-        'input-success': !$v.cardHolder.$invalid}"
-      @input="!$v.cardHolder.$invalid ? 
-        setInfo('cardHolder', $v.cardHolder) : ''"
+        'input-error': v.$invalid && v.$dirty,
+        'input-success': !v.$invalid}"
     >
-    <div 
-      class="error" 
-      v-if="!$v.cardHolder.required && $v.cardHolder.$dirty"
-    >
+    <div class="error" v-if="!v.required && v.$dirty">
       Поле обязательно.
     </div>
-    <div 
-      class="error" 
-      v-if="!$v.cardHolder.minLength && $v.cardHolder.$dirty"
-    >
+    <div class="error" v-if="!v.minLength && v.$dirty">
       Необходимо ввести как минимум 4 символа.
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
   name: 'PaymentExtCard',
   mixins: [input,], // берем отсюда метод onlyLatinLetters
-  methods: {
-    setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
+  props: {
+    value: {
+      type: String,
+      default: "",
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  data() {
-    return {
-      cardHolder: '',
-    };
-  },
-  validations: {
+  computed: {
     cardHolder: {
-      type: String,
-      required,
-      minLength: minLength(3), // 1 для фамилии + пробел + 1 для имени
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', value);
+      },
     },
   },
 };

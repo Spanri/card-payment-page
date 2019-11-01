@@ -5,17 +5,16 @@
     <div class="int-card__input-group">
       <input
         class="int-card__input" title="Введите 3 цифры"
-        v-model="$v.cardCode.$model" @keypress="onlyNumber"
+        v-model="cardCode" @keypress="onlyNumber"
         :class="{
-          'input-error': $v.cardCode.$invalid && $v.cardCode.$dirty,
-          'input-success': !$v.cardCode.$invalid}"
+          'input-error': v.cardCode.$invalid && v.cardCode.$dirty,
+          'input-success': !v.cardCode.$invalid}"
         maxlength="3"
-        @input="!$v.cardCode.$invalid ? setInfo() : ''"
       >
-      <div 
-        class="error" 
-        v-if="!$v.cardCode.minLength && $v.cardCode.$dirty"
-      >
+      <div class="error" v-if="!v.cardCode.required && v.cardCode.$dirty">
+        Поле обязательно.
+      </div>
+      <div class="error" v-if="!v.cardCode.minLength && v.cardCode.$dirty">
         Необходимо ввести 3 цифры.
       </div>
     </div>
@@ -23,27 +22,30 @@
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
   name: 'PaymentIntCard',
   mixins: [input,], // берем отсюда метод onlyNumber
-  data() {
-    return {
-      cardCode: '',
-    };
-  },
-  methods: {
-    setInfo() {
-      this.$emit('setInfo', 'cardCode', this.$v.cardCode);
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  validations: {
+  computed: {
     cardCode: {
-      type: Number,
-      required,
-      minLength: minLength(3),
+      get() {
+        return this.value.cardCode;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['cardCode']: value, });
+      },
     },
   },
 };
@@ -60,15 +62,6 @@ export default {
 }
 
 .int-card {
-  // position: absolute;
-  // top: 22px;
-  // right: 0px;
-  // padding: 15px 0;
-  // width: 380px;
-  // height: 207px;
-  // border: 1px $color-border solid;
-  // border-radius: 10px;
-  // overflow: hidden;
   @include error;
 
   /* переопределение */

@@ -5,8 +5,7 @@
     <!-- Месяц срока действия -->
     <select 
       class="expiration-date__select expiration-date__select_month"
-      v-model="$v.date.$each.$iter.month.$model"
-      @change="setInfo('date.month', $v.date.$each.$iter.month)"
+      v-model="month"
     >
       <option v-for="(elem, index) in 12" :key="index">
         {{index + 1}}
@@ -15,8 +14,7 @@
     <!-- Год срока действия -->
     <select 
       class="expiration-date__select expiration-date__select_year"
-      v-model="$v.date.$each.$iter.year.$model"
-      @change="setInfo('date.year', $v.date.$each.$iter.year)"
+      v-model="year"
     >
       <option v-for="(elem, index) in 50" :key="index">
         {{index + 1980}}
@@ -28,24 +26,33 @@
 <script>
 export default {
   name: 'PaymentExtCardExpirationDate',
-  data() {
-    return {
-      date: {
-        month: '1',
-        year: '2010',
-      },
-    };
-  },
-  methods: {
-    setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  validations: {
-    date: {
-      $each: {
-        month: {},
-        year: {},
+  computed: {
+    month: {
+      get() {
+        return this.value.month;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['month']: value, });
+      },
+    },
+    year: {
+      get() {
+        return this.value.year;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['year']: value, });
       },
     },
   },

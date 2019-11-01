@@ -1,26 +1,23 @@
 <template>
   <div class="ext-card">
-    <PaymentExtCardNumberOfCard 
+    <PaymentExtCardNumberOfCard
       class="ext-card__card-number"
-      @setInfo="setInfo"
+      v-model="cardNumber" :v="v.cardNumber"
     />
     <PaymentExtCardExpirationDate
       class="ext-card__expiration-date"
-      @setInfo="setInfo"/>
-    <PaymentExtCardHolder 
+      v-model="date" :v="v.date"
+    />
+    <PaymentExtCardHolder
       class="ext-card__cardholder"
-      @setInfo="setInfo"
+      v-model="cardHolder" :v="v.cardHolder"
     />
   </div>
 </template>
 
 <script>
-import { required, minLength, } from 'vuelidate/lib/validators';
-import { input, } from "@/mixins/input";
-
 export default {
   name: 'PaymentExtCard',
-  mixins: [input,], // берем отсюда метод onlyLatinLetters, onlyNumber
   components: {
     PaymentExtCardNumberOfCard: () => 
       import("@/components/PaymentExtCardNumberOfCard"),
@@ -29,16 +26,43 @@ export default {
     PaymentExtCardHolder: () => 
       import("@/components/PaymentExtCardHolder"),
   },
-  methods: {
-    setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  validations: {
+  computed: {
+    cardNumber: {
+      get() {
+        return this.value.cardNumber;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['cardNumber']: value, });
+      },
+    },
+    date: {
+      get() {
+        return this.value.date;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['date']: value, });
+      },
+    },
     cardHolder: {
-      type: String,
-      required,
-      minLength: minLength(4),
+      get() {
+        return this.value.cardHolder;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['cardHolder']: value, });
+      },
     },
   },
 };

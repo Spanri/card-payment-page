@@ -3,7 +3,7 @@
     <p class="info__title">Информация об оплате:</p>
     <div class="info__input-group">
       <span class="info__span">Номер счета:</span>
-      <input
+      <!-- <input
         class="info__input" title="Введите номер счета"
         v-model="$v.accountNumber.$model" @keypress="onlyNumber"
         :class="{
@@ -15,16 +15,24 @@
             setInfo('accountNumber', $v.accountNumber) : '';
           !$v.accountNumber.$invalid && $v.accountNumber.$model.length == 20 ? 
             $event.target.nextElementSibling.focus() : ''"
+      > -->
+      <input
+        class="info__input" title="Введите номер счета"
+        v-model="accountNumber" @keypress="onlyNumber"
+        :class="{
+          'input-error': v.accountNumber.$invalid && v.accountNumber.$dirty,
+          'input-success': !v.accountNumber.$invalid}"
+        maxlength="20"
       >
       <div 
         class="error"
-        v-if="!$v.accountNumber.required && $v.accountNumber.$dirty"
+        v-if="!v.accountNumber.required && v.accountNumber.$dirty"
       >
         Поле обязательно.
       </div>
       <div 
         class="error" 
-        v-if="!$v.accountNumber.minLength && $v.accountNumber.$dirty"
+        v-if="!v.accountNumber.minLength && v.accountNumber.$dirty"
       >
         Необходимо ввести 20 цифр.
       </div>
@@ -33,19 +41,17 @@
       <span class="info__span">Сумма платежа:</span>
       <input
         class="info__input" title="Введите сумму платежа"
-        v-model="$v.amount.$model" @keypress="onlyNumber"
+        v-model="amount" @keypress="onlyNumber"
         :class="{
-          'input-error': $v.amount.$invalid && $v.amount.$dirty,
-          'input-success': !$v.amount.$invalid}" 
+          'input-error': v.amount.$invalid && v.amount.$dirty,
+          'input-success': !v.amount.$invalid}" 
         maxlength="20"
-        @input="!$v.amount.$invalid ? 
-          setInfo('amount', $v.amount) : ''"
       >
       <label>&nbsp;&nbsp;руб.</label>
-      <div class="error" v-if="!$v.amount.required && $v.amount.$dirty">
+      <div class="error" v-if="!v.amount.required && v.amount.$dirty">
         Поле обязательно.
       </div>
-      <div class="error" v-if="!$v.amount.minValue  && $v.amount.$dirty">
+      <div class="error" v-if="!v.amount.minValue  && v.amount.$dirty">
         Сумма должна быть больше или равна 100.
       </div>
     </div>
@@ -53,34 +59,39 @@
 </template>
 
 <script>
-import { required, minLength, maxLength, } from 'vuelidate/lib/validators';
 import { input, } from "@/mixins/input";
 
 export default {
   name: 'PaymentInfo',
   mixins: [input,], // берем отсюда метод onlyNumber
-  data() {
-    return {
-      accountNumber: '',
-      amount: '',
-    };
-  },
-  methods: {
-    setInfo(valName, val) {
-      this.$emit('setInfo', valName, val);
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+    v: {
+      type: Object,
+      required: true,
     },
   },
-  validations: {
+  computed: {
     accountNumber: {
-      type: Number,
-      required,
-      minLength: minLength(20),
-      maxLength: maxLength(20),
+      get() {
+        return this.value.accountNumber;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['accountNumber']: value, });
+      },
     },
     amount: {
-      type: Number,
-      required,
-      minValue: (value) => value >= 100,
+      get() {
+        return this.value.amount;
+      },
+      set(value) {
+        this.v.$touch();
+        this.$emit('input', { ...this.value, ['amount']: value, });
+      },
     },
   },
 };
