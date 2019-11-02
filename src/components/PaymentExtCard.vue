@@ -4,10 +4,18 @@
       class="ext-card__card-number"
       v-model="cardNumber" :v="v.cardNumber"
     />
-    <PaymentExtCardExpirationDate
-      class="ext-card__expiration-date"
-      v-model="date" :v="v.date"
-    />
+    <div class="ext-card__expiration-date-wrapper">
+      <PaymentExtCardExpirationDate
+        class="ext-card__expiration-date"
+        v-model="date" :v="v.date"
+      />
+      <span 
+        class="error ext-card__error" 
+        v-if="v.cardHolder.$invalid && v.cardHolder.$dirty"
+      >
+        Держатель карты - минимум 4 символа.
+      </span>
+    </div>
     <PaymentExtCardHolder
       class="ext-card__cardholder"
       v-model="cardHolder" :v="v.cardHolder"
@@ -43,7 +51,7 @@ export default {
       },
       set(value) {
         console.log(value);
-        this.v.$touch();
+        this.v.cardNumber.$touch();
         this.$emit('input', { ...this.value, ['cardNumber']: value, });
       },
     },
@@ -52,7 +60,7 @@ export default {
         return this.value.date;
       },
       set(value) {
-        this.v.$touch();
+        this.v.date.$touch();
         this.$emit('input', { ...this.value, ['date']: value, });
       },
     },
@@ -61,7 +69,7 @@ export default {
         return this.value.cardHolder;
       },
       set(value) {
-        this.v.$touch();
+        this.v.cardHolder.$touch();
         this.$emit('input', { ...this.value, ['cardHolder']: value, });
       },
     },
@@ -76,13 +84,23 @@ input, select {
 
 .ext-card {
   @include error;
-  // z-index: 1;
-  // position: absolute;
-  // padding: 22px 15px 15px;
-  // width: 350px;
-  // border: 1px $color-border solid;
-  // border-radius: 10px;
-  // background: $color-backg-content;
+
+  &__error {
+    width: max-content !important;
+    padding-left: 30px;
+    max-width: 150px;
+    align-self: center;
+    text-align: right;
+  }
+
+  &__expiration-date {
+    //width: max-content;
+    //display: inline-block;
+
+    &-wrapper {
+      display: flex;
+    }
+  }
 
   &__input-number-group:last-child {
     margin-right: 0;

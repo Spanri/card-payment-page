@@ -1,30 +1,22 @@
 <template>
   <div class="number-of-card">
     <span>Номер карты </span>
-    <span v-for="(vItem, index) in v.$each.$iter" :key="index + 100">  
-      <span class="error" v-if="vItem.name.$invalid && vItem.name.$dirty">
-         Поля обязательны (по 4 символа).
-      </span>
-      {{vItem.name}}
+    <span class="error" v-if="v.$invalid && v.$dirty">
+      &emsp;Поля обязательны (по 4 символа).
     </span>
-    <!-- {{v.$each.$iter}} -->
     <br>
     <div class="number-of-card__input-number-group">
       <input
         v-for="(vItem, index) in v.$each.$iter" :key="index"
         class="number-of-card__input-number"
         maxlength="4" title="Введите 4 цифры"
-        v-model="cardNumber[index].name"
+        :value="cardNumber[index].name"
+        @input="setInfo(index, $event.target.value)"
         @keypress="onlyNumber"
         :class="{
           'input-error': vItem.name.$anyError && vItem.name.$dirty,
           'input-success': !vItem.name.$invalid}"
       >
-      <!-- :value="cardNumber[index].name"
-      @input="setInfo(index, $event)" -->
-      <!-- :value="value[index].name"
-      :value="cardNumber[index].name" -->
-      <!-- v-model="cardNumber[index].name" -->
     </div>
   </div>
 </template>
@@ -45,41 +37,21 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      a: [{name: '',},{name: '',},{name: '',},{name: '',},],
-    };
-  },
   computed: {
-    cardNumber: {
-      get() {
-        return this.value;
-      },
-      set(value) {
-        console.log(value);
-        //this.v.$touch();
-        //this.$emit('input', value);
-      },
+    cardNumber() {
+      return this.value;
     },
   },
   methods: {
-    setInfo(index,$event) {
-      // this.cardNumber
-      console.log(this.a);
+    setInfo(index, value) {
       this.value.map((v, i) => {
         if(i == index) {
-          this.cardNumber[i].name = $event.data;
+          this.cardNumber[i].name = value;
         }
       });
-      console.log(this.cardNumber);
-      this.$emit('input', this.cardNumber
-      // this.value.map((v, i) => {
-      //   if(i == index) {
-      //     this.cardNumber[i].name=$event.data;
-      //   }
-      // })
-      );
-      this.v.$touch();
+      this.$emit('input', this.cardNumber);
+      console.log(this.v.$each.$iter[index].name);
+      this.v.$each.$iter[index].name.$touch();
     },
   },
 };

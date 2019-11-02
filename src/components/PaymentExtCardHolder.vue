@@ -8,12 +8,6 @@
         'input-error': v.$invalid && v.$dirty,
         'input-success': !v.$invalid}"
     >
-    <div class="error" v-if="!v.required && v.$dirty">
-      Поле обязательно.
-    </div>
-    <div class="error" v-if="!v.minLength && v.$dirty">
-      Необходимо ввести как минимум 4 символа.
-    </div>
   </div>
 </template>
 

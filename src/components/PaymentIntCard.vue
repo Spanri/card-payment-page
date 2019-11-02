@@ -11,10 +11,16 @@
           'input-success': !v.cardCode.$invalid}"
         maxlength="3"
       >
-      <div class="error" v-if="!v.cardCode.required && v.cardCode.$dirty">
+      <div 
+        class="error int-card__error" 
+        v-if="!v.cardCode.required && v.cardCode.$dirty"
+      >
         Поле обязательно.
       </div>
-      <div class="error" v-if="!v.cardCode.minLength && v.cardCode.$dirty">
+      <div 
+        class="error int-card__error" 
+        v-if="!v.cardCode.minLength && v.cardCode.$dirty"
+      >
         Необходимо ввести 3 цифры.
       </div>
     </div>
@@ -64,11 +70,11 @@ export default {
 .int-card {
   @include error;
 
-  /* переопределение */
-  .error {
+  &__error {
     display: inline-block;
     text-align: right;
     padding-right: 7px;
+    box-sizing: border-box;
   }
 
   &__title {
