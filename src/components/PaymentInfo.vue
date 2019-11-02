@@ -96,7 +96,7 @@ export default {
 
   &__input {
     @include input;
-    min-width: 220px;
+    min-width: 170px;
     background: $color-gray-light;
     color: $color-gray-dark;
     // border: 2px $color-gray-pre-medium solid;

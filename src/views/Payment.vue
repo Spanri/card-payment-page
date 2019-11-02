@@ -240,5 +240,17 @@ input, select {
     height: auto;
   }
 
+  .payment__card-details {
+    height: 500px;
+  }
+
+}
+
+@media (max-width: 450px) {
+
+  .payment__card-details {
+    height: 420px;
+  }
+
 }
 </style>

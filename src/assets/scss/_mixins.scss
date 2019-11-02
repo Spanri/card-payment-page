@@ -2,6 +2,7 @@
 @mixin content {
   background-color: $color-backg-content;
   width: calc(100% - 60px);
+  height: 100%;
   padding: 45px 30px;
   font-family: Arial;
   font-size: 1em;

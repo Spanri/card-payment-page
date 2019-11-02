@@ -87,18 +87,13 @@ input, select {
   &__error {
     width: max-content !important;
     padding-left: 30px;
-    max-width: 150px;
+    max-width: 130px;
     align-self: center;
     text-align: right;
   }
 
-  &__expiration-date {
-    //width: max-content;
-    //display: inline-block;
-
-    &-wrapper {
-      display: flex;
-    }
+  &__expiration-date-wrapper {
+    display: flex;
   }
 
   &__input-number-group:last-child {
@@ -174,17 +169,21 @@ input, select {
 
 @media (max-width: 450px) {
 
+  .error {
+    display: block;
+  }
+
   .ext-card {
     width: 250px;
 
-    &__select {
-      padding-right: 20px;
+    &__error {
+      max-width: 100%;
+      padding-left: 0;
+      padding-bottom: 5px;
+    }
 
-      &:after {
-        top: -10px;
-        right: 30px;
-      }
-
+    &__expiration-date-wrapper {
+      display: block;
     }
 
   }

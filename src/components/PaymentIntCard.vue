@@ -160,11 +160,6 @@ export default {
       width: 91px;
     }
 
-    // &__span {
-    //   top: 8px;
-    //   right: -120px;
-    // }
-
   }
 
 }
@@ -191,7 +186,7 @@ export default {
     }
 
     &__span {
-      top: 0px;
+      top: -5px;
       right: -90px;
 
       background-size: 20px 20px;
@@ -202,12 +197,19 @@ export default {
 
 }
 
+@media (max-width: 450px) {
+
+  .int-card {
+    height: 170px;
+  }
+}
+
 @media (max-width: 400px) {
 
   .int-card {
 
     &__span {
-      top: -2px;
+      top: -7px;
       right: -90px;
 
       background-size: 15px 15px;

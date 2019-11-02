@@ -91,10 +91,6 @@ export default {
       cursor: pointer;
     }
 
-    // &::-ms-expand {
-    //   display: none;
-    // }
-
     &_month {
       margin-right: 10px;
     }
@@ -107,13 +103,6 @@ export default {
       position: absolute;
       pointer-events: none;
     }
-
-    // &:after {
-    //   top: -10px;
-    //   right: 35px;
-    //   border-top: 8px solid black;
-    //   opacity: 0.5;
-    // }
 
   }
 
@@ -152,7 +141,6 @@ export default {
 @media (max-width: 450px) {
 
   .expiration-date {
-    width: 250px;
 
     &__select {
       padding-right: 20px;

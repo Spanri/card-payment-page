@@ -1,35 +1,107 @@
 <template>
-  <nav class="nav">
-    <router-link to="/" class="nav__item disable">
-      Личный кабинет
-    </router-link>
-    <router-link to="/payment" class="nav__item">
-      Платежи
-    </router-link>
-    <router-link to="/history" class="nav__item">
-      История платежей
-    </router-link>
-    <router-link to="/" class="nav__item disable">
-      Настройки
-    </router-link>
-    <router-link to="/" class="nav__item disable">
-      Выйти
-    </router-link>
-  </nav>
+  <div class="nav">
+    <nav class="nav-inner nav__big">
+      <router-link to="/" class="nav__item disable">
+        Личный кабинет
+      </router-link>
+      <router-link to="/payment" class="nav__item">
+        Платежи
+      </router-link>
+      <router-link to="/history" class="nav__item">
+        История платежей
+      </router-link>
+      <router-link to="/" class="nav__item disable">
+        Настройки
+      </router-link>
+      <router-link to="/" class="nav__item disable">
+        Выйти
+      </router-link>
+    </nav>
+    <nav class="nav-inner nav__small">
+      <Hamburger 
+        class="nav__hamburger" 
+        @click="open = !open"
+        @openMenu="openMenu"
+        :open="open"
+      />
+      <!-- <transition name="fade"> -->
+        <div class="nav__links" v-if="open">
+          <router-link to="/" class="nav__item disable">
+            Личный кабинет
+          </router-link>
+          <router-link to="/payment" class="nav__item">
+            Платежи
+          </router-link>
+          <router-link to="/history" class="nav__item">
+            История платежей
+          </router-link>
+          <router-link to="/" class="nav__item disable">
+            Настройки
+          </router-link>
+          <router-link to="/" class="nav__item disable">
+            Выйти
+          </router-link>
+        </div>
+      <!-- </transition> -->
+    </nav>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<script>
+export default {
+  name: "Nav",
+  components: {
+    Hamburger: () => import("@/icons/Hamburger.vue"),
+  },
+  data() {
+    return {
+      open: false,
+    };
+  },
+  methods: {
+    openMenu(value) {
+      this.open = value;
+    },
+  },
+};
+</script>
 
+<style lang="scss" scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: all .3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 
 .nav {
   @include disable;
 
-  display: flex;
-  flex-direction: column;
+  z-index: 20;
 
-  padding: 0;
-  font: 1.125em;
-  min-width: 322px;
+  &__hamburger {
+    padding: 15px 20px 15px 0;
+    align-self: flex-end;
+  }
+
+  &-inner {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    font: 1.125em;
+    min-width: 322px;
+
+    &.nav__big {
+      display: flex;
+    }
+
+    &.nav__small {
+      display: none;
+    }
+
+  }
 
   &__item {
     font: $primary-font;
@@ -77,15 +149,30 @@
     color: $color-gray-medium;
   }
 
+  &__links {
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 60px;
+
+    padding: 0;
+    font: 1.125em;
+    width: 100%;
+  }
+
 }
 
 @media (max-width: 1000px) {
 
   .nav {
-    min-width: 150px;
+
+    &-inner {
+      min-width: 150px;
+    }
 
     &__item {
-      text-align: right;
+      text-align: center;
     }
     
   }
@@ -95,6 +182,18 @@
 @media (max-width: 768px) {
 
   .nav {
+
+    &-inner {
+
+      &.nav__big {
+        display: none;
+      }
+
+      &.nav__small {
+        display: flex;
+      }
+
+    }
 
     &__item {
       padding: 20px;
@@ -107,7 +206,10 @@
 @media (max-width: 400px) {
 
   .nav {
-    font-size: 1em;
+    
+    &-inner {
+      font-size: 1em;
+    }
 
     &__item {
       padding: 15px;
