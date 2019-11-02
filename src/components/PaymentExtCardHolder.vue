@@ -55,7 +55,7 @@ input, select {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .cardholder {
     position: static;

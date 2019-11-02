@@ -17,11 +17,6 @@ export default {
 </script>
 
 <style lang="scss">
-::selection {
-  background: $color-selection;
-  color: white;
-}
-
 #app {
   display: flex;
   align-items: stretch;

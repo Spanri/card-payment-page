@@ -11,6 +11,7 @@
           'input-success': !v.cardCode.$invalid}"
         maxlength="3"
       >
+      <span class="int-card__span"></span>
       <div 
         class="error int-card__error" 
         v-if="!v.cardCode.required && v.cardCode.$dirty"
@@ -21,7 +22,7 @@
         class="error int-card__error" 
         v-if="!v.cardCode.minLength && v.cardCode.$dirty"
       >
-        Необходимо ввести 3 цифры.
+        Нужно ввести 3 цифры.
       </div>
     </div>
   </div>
@@ -91,38 +92,17 @@ export default {
     clear: both;
     margin-right: 10px;
     width: 107px;
-
-    &:before {
-      content: 'attr(data-tooltip)';
-      position: absolute;
-      opacity: 0;
-      visibility: hidden;
-      width: 140px;
-      height: 40px;
-      line-height: 40px;
-      background: #3C4896;
-      border-radius: 5px;
-      bottom: 90px;
-      left: calc(50% - 70px);
-    }
-
-    /* появление подсказки */
-    &:hover:before {
-      bottom: 70px;
-      opacity: 1;
-      visibility: visible;
-      transition: .2s ease-in-out .4s;
-    }
-
   }
 
   &__span{
     position: relative;
-    top: 6px;
+    top: 2px;
     right: -105px;
-    z-index: 3;
+
     width: 25px;
     height: 40px;
+
+    z-index: 3;
     float: right;
     background: url('../assets/hint.png') no-repeat;
     background-size: 25px 25px;
@@ -132,12 +112,41 @@ export default {
       cursor: pointer;
     }
 
+    &:after {
+      content: 'Код на обратной стороне карты';
+      position: absolute;
+      bottom: -90px;
+      right: -10px;
+
+      opacity: 0;
+      visibility: hidden;
+      background: $color-border;
+      border-radius: 5px;
+      padding: 5px;
+
+      color: $color-gray-pre-dark;
+      line-height: 20px;
+      text-align: center;
+
+      width: 115px;
+      height: auto;
+    }
+
+    /* появление подсказки */
+    &:hover:after {
+      bottom: -55px;
+      opacity: 1;
+      visibility: visible;
+      transition: all ease-in-out .4s;
+    }
+
   }
 
   &__line{
-    margin-top: 8px;
     width: 100%;
     height: 37.6px;
+
+    margin-top: 8px;
     background: $color-border;
   }
 
@@ -151,16 +160,16 @@ export default {
       width: 91px;
     }
 
-    &__span {
-      top: 8px;
-      right: -120px;
-    }
+    // &__span {
+    //   top: 8px;
+    //   right: -120px;
+    // }
 
   }
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .int-card {
     position: static;
@@ -184,6 +193,7 @@ export default {
     &__span {
       top: 0px;
       right: -90px;
+
       background-size: 20px 20px;
       background-position: 93% center;
     }
@@ -199,6 +209,7 @@ export default {
     &__span {
       top: -2px;
       right: -90px;
+
       background-size: 15px 15px;
       background-position: 93% center;
     }

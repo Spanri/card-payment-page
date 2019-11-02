@@ -50,7 +50,6 @@ export default {
         return this.value.cardNumber;
       },
       set(value) {
-        console.log(value);
         this.v.cardNumber.$touch();
         this.$emit('input', { ...this.value, ['cardNumber']: value, });
       },
@@ -165,7 +164,7 @@ input, select {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .ext-card {
     position: static;

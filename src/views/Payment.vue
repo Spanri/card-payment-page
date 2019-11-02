@@ -116,7 +116,6 @@ export default {
         amount: this.amount,
         cardNumber: this.cardNumber,
         cardHolder: this.cardHolder,
-        cardCode: this.cardCode,
         date: this.dateFormat(new Date()),
       };
       this.$store.dispatch('addPayment', payment)
@@ -135,11 +134,10 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         let payment = {
-          accountNumber: this.accountNumber,
-          amount: this.amount,
-          cardNumber: this.cardNumber,
-          cardHolder: this.cardHolder,
-          cardCode: this.cardCode,
+          accountNumber: this.info.accountNumber,
+          amount: this.info.amount,
+          cardNumber: this.extCard.cardNumber,
+          cardHolder: this.extCard.cardHolder,
           date: this.dateFormat(new Date()),
         };
         this.$store.dispatch('addPayment', payment)
@@ -212,66 +210,30 @@ input, select {
     overflow: hidden;
   }
 
-}
-
-input {
-
-  &:invalid:focus {
-    border: 1px solid red;
-  }
-
-  &:not(.payment__info-input) {
-    margin: 5px 10px 10px 0;
-  }
-
-  &::-ms-clear {
-    display: none;
-  }
-
-}
-
-select {
-  appearance: none;
-  padding-right: 30px;
-  margin: 5px 10px 10px 0;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &::-ms-expand {
-    display: none;
-  }
-
-}
-
-input::placeholder{
-  color: $color-gray-pre-medium !important;
-  opacity: 1;
-}
-
-button {
-  border: 0;
-  border-radius: 30px;
-  background: $color-payment-button-dark;
-  background: linear-gradient(
-    0deg, $color-payment-button-dark 0%, 
-    $color-payment-button-light 100%);
-  color: $color-gray-light;
-  padding: 13px 30px;
-  font: .875em OpenSans-Bold, sans-serif;
-  margin: 40px 15px 0 15px;
-
-  &:hover {
-    cursor: pointer;
-    background: $color-payment-button-dark-hover;
+  &__submit {
+    border: 0;
+    border-radius: 30px;
+    background: $color-payment-button-dark;
     background: linear-gradient(
-      0deg, $color-payment-button-dark-hover 0%, $color-payment-button-light-hover 100%);
+      0deg, $color-payment-button-dark 0%, 
+      $color-payment-button-light 100%);
+    color: $color-gray-light;
+    padding: 13px 30px;
+    font: .875em OpenSans-Bold, sans-serif;
+    margin: 40px 15px 0 15px;
+
+    &:hover {
+      cursor: pointer;
+      background: $color-payment-button-dark-hover;
+      background: linear-gradient(
+        0deg, $color-payment-button-dark-hover 0%, $color-payment-button-light-hover 100%);
+    }
+
   }
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .card {
     position: static;

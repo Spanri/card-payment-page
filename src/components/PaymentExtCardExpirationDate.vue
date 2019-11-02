@@ -60,19 +60,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input, select {
-  @include input;
-}
-
 .expiration-date {
   @include error;
-  // z-index: 1;
-  // position: absolute;
-  // padding: 22px 15px 15px;
-  // width: 350px;
-  // border: 1px $color-border solid;
-  // border-radius: 10px;
-  // background: $color-backg-content;
 
   &__input-number-group:last-child {
     margin-right: 0;
@@ -88,9 +77,23 @@ input, select {
   }
 
   &__select {
+    @include input;
+
     position: relative;
     display: inline;
     margin: 10px 0;
+
+    appearance: none;
+    padding-right: 30px;
+    margin: 5px 10px 10px 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    // &::-ms-expand {
+    //   display: none;
+    // }
 
     &_month {
       margin-right: 10px;
@@ -98,18 +101,19 @@ input, select {
 
     &:after {
       content: "v";
+      color: black;
       width: 0;
       height: 0;
       position: absolute;
       pointer-events: none;
     }
 
-    &:after {
-      top: -10px;
-      right: 35px;
-      border-top: 8px solid black;
-      opacity: 0.5;
-    }
+    // &:after {
+    //   top: -10px;
+    //   right: 35px;
+    //   border-top: 8px solid black;
+    //   opacity: 0.5;
+    // }
 
   }
 
@@ -137,7 +141,7 @@ input, select {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .expiration-date {
     position: static;

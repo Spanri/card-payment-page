@@ -50,7 +50,6 @@ export default {
         }
       });
       this.$emit('input', this.cardNumber);
-      console.log(this.v.$each.$iter[index].name);
       this.v.$each.$iter[index].name.$touch();
     },
   },
@@ -128,7 +127,7 @@ input, select {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .number-of-card {
     position: static;

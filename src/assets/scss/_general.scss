@@ -1,0 +1,14 @@
+[v-cloak] {
+  display: none;
+}
+
+::selection {
+  background: $color-selection;
+  color: white;
+}
+
+input::placeholder{
+  color: $color-gray-pre-medium !important;
+  opacity: 1;
+}
+

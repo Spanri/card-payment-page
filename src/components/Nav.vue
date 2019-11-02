@@ -82,7 +82,12 @@
 @media (max-width: 1000px) {
 
   .nav {
-    min-width: 200px;
+    min-width: 150px;
+
+    &__item {
+      text-align: right;
+    }
+    
   }
 
 }

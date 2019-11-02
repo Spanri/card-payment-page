@@ -3,19 +3,6 @@
     <p class="info__title">Информация об оплате:</p>
     <div class="info__input-group">
       <span class="info__span">Номер счета:</span>
-      <!-- <input
-        class="info__input" title="Введите номер счета"
-        v-model="$v.accountNumber.$model" @keypress="onlyNumber"
-        :class="{
-          'input-error': $v.accountNumber.$invalid && $v.accountNumber.$dirty,
-          'input-success': !$v.accountNumber.$invalid}"
-        maxlength="20"
-        @input="
-          !$v.accountNumber.$invalid ? 
-            setInfo('accountNumber', $v.accountNumber) : '';
-          !$v.accountNumber.$invalid && $v.accountNumber.$model.length == 20 ? 
-            $event.target.nextElementSibling.focus() : ''"
-      > -->
       <input
         class="info__input" title="Введите номер счета"
         v-model="accountNumber" @keypress="onlyNumber"
@@ -34,7 +21,7 @@
         class="error" 
         v-if="!v.accountNumber.minLength && v.accountNumber.$dirty"
       >
-        Необходимо ввести 20 цифр.
+        Нужно ввести 20 цифр.
       </div>
     </div>
     <div class="info__input-group">
@@ -80,7 +67,7 @@ export default {
         return this.value.accountNumber;
       },
       set(value) {
-        this.v.$touch();
+        this.v.accountNumber.$touch();
         this.$emit('input', { ...this.value, ['accountNumber']: value, });
       },
     },
@@ -89,7 +76,7 @@ export default {
         return this.value.amount;
       },
       set(value) {
-        this.v.$touch();
+        this.v.amount.$touch();
         this.$emit('input', { ...this.value, ['amount']: value, });
       },
     },

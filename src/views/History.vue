@@ -38,10 +38,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-[v-cloak] {
-  display: none;
-}
-
 .history {
   @include content;
 
@@ -74,7 +70,7 @@ export default {
     }
 
   }
-   
+  
 }
 
 @media (max-width: 768px) {
