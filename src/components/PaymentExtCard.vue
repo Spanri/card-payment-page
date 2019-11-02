@@ -42,6 +42,7 @@ export default {
         return this.value.cardNumber;
       },
       set(value) {
+        console.log(value);
         this.v.$touch();
         this.$emit('input', { ...this.value, ['cardNumber']: value, });
       },

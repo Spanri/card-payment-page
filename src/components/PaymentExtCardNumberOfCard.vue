@@ -1,36 +1,43 @@
 <template>
   <div class="number-of-card">
     <span>Номер карты </span>
-    <span v-for="(v, index) in cardNumber" :key="index + 100">  
-      <span class="error" v-if="v.$invalid && v.$dirty">
+    <span v-for="(vItem, index) in v.$each.$iter" :key="index + 100">  
+      <span class="error" v-if="vItem.name.$invalid && vItem.name.$dirty">
          Поля обязательны (по 4 символа).
       </span>
+      {{vItem.name}}
     </span>
+    <!-- {{v.$each.$iter}} -->
     <br>
     <div class="number-of-card__input-number-group">
       <input
-        v-for="(v, index) in cardNumber" :key="index"
+        v-for="(vItem, index) in v.$each.$iter" :key="index"
         class="number-of-card__input-number"
         maxlength="4" title="Введите 4 цифры"
-        v-model="v.$model" @keypress="onlyNumber"
+        v-model="cardNumber[index].name"
+        @keypress="onlyNumber"
         :class="{
-          'input-error': v.$anyError && v.$dirty,
-          'input-success': !v.$invalid}"
+          'input-error': vItem.name.$anyError && vItem.name.$dirty,
+          'input-success': !vItem.name.$invalid}"
       >
+      <!-- :value="cardNumber[index].name"
+      @input="setInfo(index, $event)" -->
+      <!-- :value="value[index].name"
+      :value="cardNumber[index].name" -->
+      <!-- v-model="cardNumber[index].name" -->
     </div>
   </div>
 </template>
 
 <script>
 import { input, } from "@/mixins/input";
-import getComputedArray from 'vue-computed-array';
 
 export default {
   name: 'PaymentExtCardNumberOfCard',
   mixins: [input,], // берем отсюда метод onlyNumber
   props: {
     value: {
-      type: Object,
+      type: Array,
       default: () => {},
     },
     v: {
@@ -38,20 +45,42 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      a: [{name: '',},{name: '',},{name: '',},{name: '',},],
+    };
+  },
   computed: {
-    cardNumber: getComputedArray({
-      get() { return this.value; },
-      set(value) { 
-        this.v.$touch();
-        this.$emit('input', value); 
+    cardNumber: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        console.log(value);
+        //this.v.$touch();
+        //this.$emit('input', value);
       },
     },
-    // {
-    //   get: v => { return { foo: v};},
-    //   set: v => { return { id: v.foo.key, name: v.foo.title, };},
-    //   map: { foo: { key: 'id', },},
-    // }
-    ),
+  },
+  methods: {
+    setInfo(index,$event) {
+      // this.cardNumber
+      console.log(this.a);
+      this.value.map((v, i) => {
+        if(i == index) {
+          this.cardNumber[i].name = $event.data;
+        }
+      });
+      console.log(this.cardNumber);
+      this.$emit('input', this.cardNumber
+      // this.value.map((v, i) => {
+      //   if(i == index) {
+      //     this.cardNumber[i].name=$event.data;
+      //   }
+      // })
+      );
+      this.v.$touch();
+    },
   },
 };
 </script>

@@ -43,7 +43,10 @@ export default {
         amount: '',
       },
       extCard: {
-        cardNumber: ['', '', '', '',],
+        cardNumber: [
+          {name: '',}, {name: '',}, 
+          {name: '',}, {name: '',}, 
+        ],
         date: {
           month: (new Date()).getMonth(),
           year: (new Date()).getFullYear(),
