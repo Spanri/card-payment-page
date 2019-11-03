@@ -51,7 +51,7 @@ export default {
           month: (new Date()).getMonth(),
           year: (new Date()).getFullYear(),
         },
-        cardHolder: '',
+        cardHolder: null,
       },
       intCard: {
         cardCode: '',
@@ -234,6 +234,10 @@ input, select {
 }
 
 @media (max-width: 768px) {
+
+  .payment {
+    height: 1000px;
+  }
 
   .card {
     position: static;

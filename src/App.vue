@@ -52,6 +52,7 @@ export default {
 
   #app {
     min-height: 100vh;
+    height: 100%;
     flex-direction: column;
     justify-content: flex-start;
     padding: 0;

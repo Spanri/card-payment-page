@@ -109,36 +109,6 @@ input, select {
     margin-left: 10px;
   }
 
-  &__select {
-    position: relative;
-    display: inline;
-    margin: 10px 0;
-
-    &_month {
-      margin-right: 10px;
-    }
-
-    &:after {
-      content: "v";
-      width: 0;
-      height: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-
-    &:after {
-      top: -10px;
-      right: 35px;
-      border-top: 8px solid black;
-      opacity: 0.5;
-    }
-
-  }
-
-  &__cardholder {
-    width: calc(100% - 20px);
-  }
-
   &__input-code div {
     position: absolute;
 
