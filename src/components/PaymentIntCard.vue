@@ -97,7 +97,7 @@ export default {
   &__span{
     position: relative;
     top: 2px;
-    right: -105px;
+    right: -120px;
 
     width: 25px;
     height: 40px;
@@ -107,6 +107,7 @@ export default {
     background: url('../assets/hint.png') no-repeat;
     background-size: 25px 25px;
     background-position: 95% 5px;
+    font-size: .9em;
 
     &:hover {
       cursor: pointer;
@@ -158,6 +159,10 @@ export default {
 
     &__input {
       width: 91px;
+    }
+
+    &__span{
+      right: -105px;
     }
 
   }

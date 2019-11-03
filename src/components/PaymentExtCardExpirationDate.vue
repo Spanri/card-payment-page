@@ -5,7 +5,7 @@
     <!-- Месяц срока действия -->
     <select 
       class="expiration-date__select expiration-date__select_month"
-      v-model="month"
+      v-model="month" placeholder="ffff"
     >
       <option v-for="(elem, index) in 12" :key="index">
         {{index + 1}}
@@ -87,13 +87,19 @@ export default {
     padding-right: 30px;
     margin: 5px 10px 10px 0;
 
+    &_month {
+      margin-right: 10px;
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+
     &:hover {
       cursor: pointer;
     }
 
-    &_month {
-      margin-right: 10px;
-    }
+    
 
     &:after {
       content: "v";

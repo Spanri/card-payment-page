@@ -74,7 +74,7 @@ export default {
     width: 40px;
     height: 4px;
 
-    background-color: $color-payment-button-light;
+    background-color: $color-selection;
     padding: 0;
     border-radius: 4px;
     transition: all 0.4s ease-in-out;

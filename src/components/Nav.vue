@@ -77,8 +77,8 @@ export default {
 
 .nav {
   @include disable;
-
   z-index: 20;
+  user-select: none;
 
   &__hamburger {
     padding: 15px 20px 15px 0;
