@@ -47,7 +47,6 @@ export default {
     margin: 15px;
     margin-bottom: 0;
     text-align: center;
-    word-break: break-all;
   }
 
   &__head {
@@ -60,6 +59,7 @@ export default {
   }
 
   &__body {
+    word-break: break-all;
 
     &-tr {
       border-bottom: 1px $color-border solid;

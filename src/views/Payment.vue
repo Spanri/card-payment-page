@@ -220,12 +220,20 @@ input, select {
   }
 
   .card {
-    position: static;
-    height: auto;
+    // position: static;
+    // height: auto;
   }
 
   .payment__card-details {
-    height: 500px;
+    // height: 300px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .payment__card-details {
+    height: 350px;
   }
 
 }
@@ -233,7 +241,7 @@ input, select {
 @media (max-width: 450px) {
 
   .payment__card-details {
-    height: 420px;
+    height: 300px;
   }
 
 }

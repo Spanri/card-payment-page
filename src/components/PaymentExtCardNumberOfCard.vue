@@ -101,6 +101,10 @@ input, select {
       margin-bottom: -20px;
     }
 
+    &__input-number {
+      width: 35px;
+    }
+
   }
 
 }

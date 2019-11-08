@@ -1,12 +1,19 @@
 /* основной контент */
 @mixin content {
-  background-color: $color-backg-content;
   width: calc(100% - 60px);
   height: 100%;
+  min-height: 319px;
+
+  background-color: $color-backg-content;
   padding: 45px 30px;
+
   font-family: Arial;
   font-size: 1em;
   color: $color-main;
+
+  @media (max-width: 1000px) {
+    min-height: 346px;
+  }
 
   @media (max-width: 768px) {
     flex: 100%;
@@ -25,10 +32,11 @@
   }
 }
 
-@mixin input {
-  color: $color-gray-pre-dark;
+@mixin input { 
   border: 2px $color-border solid;
   padding: 10px;
+
+  color: $color-gray-pre-dark;
   font-size: 1em;
 
   @media (max-width: 450px) {

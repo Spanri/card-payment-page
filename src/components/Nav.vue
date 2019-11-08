@@ -24,7 +24,7 @@
         @openMenu="openMenu"
         :open="open"
       />
-      <!-- <transition name="fade"> -->
+      <transition name="fade">
         <div class="nav__links" v-if="open">
           <router-link to="/" class="nav__item disable">
             Личный кабинет
@@ -42,7 +42,7 @@
             Выйти
           </router-link>
         </div>
-      <!-- </transition> -->
+      </transition>
     </nav>
   </div>
 </template>
@@ -79,6 +79,7 @@ export default {
   @include disable;
   z-index: 20;
   user-select: none;
+  position: relative;
 
   &__hamburger {
     padding: 15px 20px 15px 0;

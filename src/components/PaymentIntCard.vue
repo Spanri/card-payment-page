@@ -96,8 +96,8 @@ export default {
 
   &__span{
     position: relative;
-    top: 2px;
-    right: -120px;
+    margin-top: 2px;
+    margin-right: -120px;
 
     width: 25px;
     height: 40px;
@@ -108,6 +108,8 @@ export default {
     background-size: 25px 25px;
     background-position: 95% 5px;
     font-size: .9em;
+
+    display: block;
 
     &:hover {
       cursor: pointer;
@@ -120,7 +122,7 @@ export default {
       right: -10px;
 
       opacity: 0;
-      visibility: hidden;
+      //visibility: hidden;
       background: $color-border;
       border-radius: 5px;
       padding: 5px;
@@ -137,7 +139,6 @@ export default {
     &:hover:after {
       bottom: -55px;
       opacity: 1;
-      visibility: visible;
       transition: all ease-in-out .4s;
     }
 
@@ -162,18 +163,37 @@ export default {
     }
 
     &__span{
-      right: -105px;
+      margin-right: -105px;
     }
 
   }
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
   .int-card {
-    position: static;
-    margin-top: 15px;
+    // position: static;
+    margin-top: 70px;
+    left: 20px;
+
+    &__title {
+      margin-top: 90px;
+    }
+
+    &__span {
+      &:after {
+        bottom: -90px;
+        right: 120px;
+      }
+
+      /* появление подсказки */
+      &:hover:after {
+        bottom: 3px;
+      }
+
+    }
+
   }
 
 }
@@ -183,6 +203,7 @@ export default {
   .int-card {
     width: 280px;
     height: 206px;
+    height: 170px;
 
     &__input {
       width: 82px;
@@ -190,9 +211,13 @@ export default {
       background-position: 93% center;
     }
 
+    &__title {
+      margin-top: 65px;
+    }
+
     &__span {
-      top: -5px;
-      right: -90px;
+      margin-top: -5px;
+      margin-right: -90px;
 
       background-size: 20px 20px;
       background-position: 93% center;
@@ -202,25 +227,26 @@ export default {
 
 }
 
-@media (max-width: 450px) {
-
-  .int-card {
-    height: 170px;
-  }
-}
-
 @media (max-width: 400px) {
 
   .int-card {
 
     &__span {
-      top: -7px;
-      right: -90px;
+      margin-top: -7px;
+      margin-right: -90px;
 
       background-size: 15px 15px;
       background-position: 93% center;
     }
 
+  }
+
+}
+
+@media (max-width: 350px) {
+
+  .int-card {
+    left: 0;
   }
 
 }

@@ -66,7 +66,7 @@ input, select {
 @media (max-width: 450px) {
 
   .cardholder {
-    width: 250px;
+    width: 240px;
   }
 
 }

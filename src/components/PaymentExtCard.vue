@@ -129,14 +129,6 @@ input, select {
 
 }
 
-@media (max-width: 768px) {
-
-  .ext-card {
-    position: static;
-  }
-
-}
-
 @media (max-width: 450px) {
 
   .error {
@@ -144,7 +136,7 @@ input, select {
   }
 
   .ext-card {
-    width: 250px;
+    width: 230px;
 
     &__error {
       max-width: 100%;
