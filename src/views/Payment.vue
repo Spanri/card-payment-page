@@ -110,26 +110,6 @@ export default {
       let months = [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек', ];
       return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     },
-    submit2() {
-      let payment = {
-        accountNumber: this.accountNumber,
-        amount: this.amount,
-        cardNumber: this.cardNumber,
-        cardHolder: this.cardHolder,
-        date: this.dateFormat(new Date()),
-      };
-      this.$store.dispatch('addPayment', payment)
-      .then(() => {
-        this.$router.push({
-          name: 'payment-success',
-          params: {
-            payment: payment,
-          },
-        });
-      }).catch(err => {
-        console.log(err);
-      });
-    },
     submit() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
