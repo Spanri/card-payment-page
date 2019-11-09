@@ -2,12 +2,11 @@
   display: none;
 }
 
-html, body, #app-wrapper { 
+html, body {
   min-height: 100vh;
-  //height: 100%;
 }
 
-html, body {
+body {
   display: flex; /*  IE need this for its 'min-height' bug  */
   flex-direction: column;
 }
@@ -22,7 +21,6 @@ input::placeholder{
   opacity: 1;
 }
 
-*:focus {
-  outline: 0;
-  box-shadow: 0 0 10px $color-selection;
-}
+// *:active {
+//   outline: none;
+// }

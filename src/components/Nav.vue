@@ -73,6 +73,23 @@ export default {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+  height: 0;
+}
+
+.fade-enter {
+
+  .nav__links {
+    height: 0;
+  }
+  
+}
+
+.fade-leave-to {
+
+  .nav__links {
+    height: 100%;
+  }
+
 }
 
 .nav {
@@ -82,7 +99,7 @@ export default {
   position: relative;
 
   &__hamburger {
-    padding: 15px 20px 15px 0;
+    padding: 15px 20px 15px 20px;
     align-self: flex-end;
   }
 
@@ -153,9 +170,6 @@ export default {
   &__links {
     display: flex;
     flex-direction: column;
-
-    position: fixed;
-    top: 60px;
 
     padding: 0;
     font: 1.125em;

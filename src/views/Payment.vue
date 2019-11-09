@@ -152,8 +152,10 @@ input, select {
 
 .payment {
   @include content;
+  position: relative;
 
   &__card {
+    position: relative;
 
     &-title {
       font: 1.374em OpenSans-Bold, sans-serif;
