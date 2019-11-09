@@ -215,23 +215,6 @@ input, select {
 
 }
 
-@media (max-width: 768px) {
-
-  .payment {
-    height: 1000px;
-  }
-
-  .card {
-    // position: static;
-    // height: auto;
-  }
-
-  .payment__card-details {
-    // height: 300px;
-  }
-
-}
-
 @media (max-width: 600px) {
 
   .payment__card-details {

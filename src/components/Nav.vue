@@ -73,23 +73,6 @@ export default {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
-  height: 0;
-}
-
-.fade-enter {
-
-  .nav__links {
-    height: 0;
-  }
-  
-}
-
-.fade-leave-to {
-
-  .nav__links {
-    height: 100%;
-  }
-
 }
 
 .nav {
@@ -174,6 +157,7 @@ export default {
     padding: 0;
     font: 1.125em;
     width: 100%;
+    height: 0;
   }
 
 }
